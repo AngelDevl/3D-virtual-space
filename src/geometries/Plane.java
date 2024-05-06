@@ -16,7 +16,7 @@ public class Plane implements Geometry {
      */
     Plane(Point p, Point norm1, Point norm2) {
         normal = null;
-        this.p = p;
+        this.q = p;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Plane implements Geometry {
      */
     Plane(Point p, Vector normal) {
         this.normal = normal.normalize();
-        this.p = p;
+        this.q = p;
     }
 
     @Override public Vector getNormal(Point p) {
@@ -50,5 +50,5 @@ public class Plane implements Geometry {
     /**
      * a point that lies on the plane
      */
-    private final Point p;
+    private final Point q;
 }
