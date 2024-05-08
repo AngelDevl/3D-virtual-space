@@ -19,7 +19,6 @@ public class Cylinder extends Tube {
      */
     Cylinder(Ray axis, double radius, double height) {
         super(axis, radius);
-
         this.height = height;
     }
 
