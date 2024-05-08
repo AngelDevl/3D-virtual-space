@@ -8,14 +8,16 @@ import primitives.Vector;
 public class Plane implements Geometry {
 
     /**
-     * Plane Constructor that initialize a new Plane object and calculates the normal using two points (not implemented yet),
+     * Plane Constructor that initialize a new Plane object and calculates the normal using two points,
      * and saving one point that lies on the plane. The constructor normalize the new normal vector after calculation
      * @param p point that lies on the plane
      * @param norm1 the first point that used to calculate the normal in a plane
      * @param norm2 the second point that used to calculate the normal in a plane
      */
     Plane(Point p, Point norm1, Point norm2) {
-        normal = null;
+        // first we need to calculate the two vectors by subtracting the points (p2 - p1 & p3 - p1)
+        // that would give the two vectors, then we need to do cross product and then normalize the result
+        normal = (norm1.subtract(p).crossProduct(norm2.subtract(p))).normalize();
         this.q = p;
     }
 
@@ -31,7 +33,7 @@ public class Plane implements Geometry {
     }
 
     @Override public Vector getNormal(Point p) {
-        return null;
+        return normal;
     }
 
     /**

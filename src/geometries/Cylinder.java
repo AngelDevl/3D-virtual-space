@@ -3,6 +3,9 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
 
+import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
+
 /**
  * Cylinder class that's represent a cylinder in a 3D Cartesian coordinate system
  */
@@ -21,7 +24,26 @@ public class Cylinder extends Tube {
     }
 
     @Override public Vector getNormal(Point p) {
-        return null;
+        Point point = axis.head;
+        Vector vec = axis.direction;
+        double t = 0;
+
+        // check tube BVA P-p0
+        try {
+            t = alignZero(p.subtract(point).dotProduct(vec));
+        }
+        catch (IllegalArgumentException e) {
+            return vec;
+        }
+
+        // check if the point is at the base
+        if(isZero(t) || isZero(height - t)){
+            return vec;
+        }
+
+        // reassign p0 so don't need to create new obj
+        point = point.add(vec.scale(t));
+        return p.subtract(point).normalize();
     }
 
     /**
