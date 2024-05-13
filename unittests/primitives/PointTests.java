@@ -101,6 +101,10 @@ public class PointTests {
 
         Vector expectedResult3 = new Vector(-1, -2, -3);
         assertEquals(expectedResult3, zeroPoint.subtract(p1), "Subtraction from zero Point doesn't work");
+
+        //TC12: Zero vector returned from subtract
+
+        assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "Constructor (Double3 (which we use in Vector.subtract)) didn't throw an IllegalArgumentException");
     }
 
     /** Test method for {@link primitives.Point#distanceSquared(Point)} */
