@@ -83,7 +83,7 @@ public class PointTests {
         //TC04: Test subtracting Point with negative values
 
         Point p4 = new Point(-4, -5, -6);
-        Vector expectedResult2=new Vector(5, 7, 9);
+        Vector expectedResult2 = new Vector(5, 7, 9);
         assertEquals(expectedResult2, p1.subtract(p4), "Subtraction of Point with negative values doesn't work");
 
 
@@ -127,14 +127,14 @@ public class PointTests {
 
         //TC03: Test if the distance squared between 2 Points is the same both ways
 
-        assertEquals(p1.distanceSquared(p3),p3.distanceSquared(p1),DELTA,
+        assertEquals(p1.distanceSquared(p3), p3.distanceSquared(p1), DELTA,
                 "Distance squared between 2 Points isn't the same both ways");
 
 
         //TC04: Test to see if the distance squared works with negative numbers
 
         Point p4 = new Point(-1, -2, -3);
-        assertEquals(56,p1.distanceSquared(p4),DELTA, "Distance squared doesn't work with negative numbers");
+        assertEquals(56, p1.distanceSquared(p4), DELTA, "Distance squared doesn't work with negative numbers");
 
 
         // =============== Boundary Values Tests ==================
@@ -156,7 +156,7 @@ public class PointTests {
         //TC01: Test for if distance of Point from itself is 0
 
         Point p1 = new Point(1, 4, 9);
-        assertEquals(0, p1.distance(p1),DELTA, "Distance of Point from itself is not 0");
+        assertEquals(0, p1.distance(p1), DELTA, "Distance of Point from itself is not 0");
 
         //TC02: Test if distance squared between 2 random Points is as expected
 

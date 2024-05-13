@@ -100,8 +100,6 @@ public class VectorTests {
         //TC11: test scale by 0
 
         assertThrows(IllegalArgumentException.class, () -> vector0.scale(0), "Vector equals to Zero Vector (0, 0, 0)");
-
-
     }
 
     /** Test case for {@link primitives.Vector#dotProduct(Vector)} */
@@ -148,8 +146,6 @@ public class VectorTests {
 
         //TC12: Test dot product with opposite vector
         assertEquals(-14, vectorA.dotProduct(vectorNegative), "Dot product with opposite vector failed");
-
-
     }
 
     /** Test case for {@link primitives.Vector#crossProduct(Vector)} */
@@ -190,8 +186,6 @@ public class VectorTests {
         //TC11: test cross product with self
 
         assertThrows(IllegalArgumentException.class, () -> vectorX.crossProduct(vectorX), "Vector equals to Zero Vector (0, 0, 0)");
-
-
     }
 
     /** Test case for {@link Vector#lengthSquared()} */
