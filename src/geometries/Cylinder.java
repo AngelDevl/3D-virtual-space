@@ -3,6 +3,8 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
 
@@ -22,27 +24,27 @@ public class Cylinder extends Tube {
         this.height = height;
     }
 
+
     @Override public Vector getNormal(Point p) {
-        Point point = axis.head;
-        Vector vec = axis.direction;
+        Point head = axis.head;
+        Vector direction = axis.direction;
         double t = 0;
 
         // check tube BVA P-p0
         try {
-            t = alignZero(p.subtract(point).dotProduct(vec));
+            t = alignZero(p.subtract(head).dotProduct(direction));
         }
         catch (IllegalArgumentException e) {
-            return vec;
+            return direction;
         }
 
         // check if the point is at the base
-        if(isZero(t) || isZero(height - t)){
-            return vec;
+        if(isZero(t) || isZero(height - t)) {
+            return direction;
         }
 
         // reassign p0 so don't need to create new obj
-        point = point.add(vec.scale(t));
-        return p.subtract(point).normalize();
+        return p.subtract(axis.getPoint(t)).normalize();
     }
 
     /**
