@@ -12,6 +12,31 @@ public class PlaneTests {
 
     private final double DELTA = 0.000001;
 
+
+    /** Test method for {@link Plane#Plane(Point, Point, Point)}. */
+
+    @Test
+    void testConstructor() {
+        Point p1 = new Point (2, 6, 2);
+        Point p2 = new  Point (0, 0, 3);
+        Point p3 = new Point (0, 0, 7);
+        Point p4 = new Point(0, 0, 0);
+
+        // =============== Boundary Values Tests ==================
+
+        //TC11 test case for 2 of the same point
+
+        String errorMessage = "ERROR: no error thrown for 2 similar points or wrong exception thrown";
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p3, p3, p1), errorMessage);
+
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p3, p1, p3), errorMessage);
+
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p1, p3, p3), errorMessage);
+
+        //TC12 test case if all on the same line
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p4, p2, p3), "ERROR: no error thrown for all points on the same line or wrong exception thrown");
+    }
+
     /** Test method for {@link geometries.Plane#getNormal(Point)}*/
 
     @Test
@@ -44,4 +69,5 @@ public class PlaneTests {
         assertEquals(0, result.dotProduct(p2.subtract(p3)),
                 "Normal is not orthogonal to the Plane");
     }
+
 }
