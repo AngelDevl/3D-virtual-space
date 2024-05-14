@@ -13,9 +13,7 @@ public class Ray {
      */
     public Ray(Point head, Vector direction) {
         this.head = head;
-        direction.normalize();
-
-        this.direction = direction;
+        this.direction = direction.normalize();
     }
 
     @Override public String toString() {
