@@ -43,8 +43,7 @@ public class Cylinder extends Tube {
             return direction;
         }
 
-        // reassign p0 so don't need to create new obj
-        return p.subtract(axis.getPoint(t)).normalize();
+        return p.subtract(axis.head.add(direction.scale(t))).normalize();
     }
 
     /**

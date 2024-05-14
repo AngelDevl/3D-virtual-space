@@ -210,7 +210,8 @@ public class VectorTests {
 
         //TC02: test length squared with negative components
 
-        assertEquals(14.0, vector.lengthSquared(), 1e-10,
+        Vector vectorNegative = new Vector(-1.0, -2.0, -3.0);
+        assertEquals(14.0, vectorNegative.lengthSquared(), 1e-10,
                 "Failed test length squared with negative components"); // Squared magnitude is the same regardless of signs
 
 
