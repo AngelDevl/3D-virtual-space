@@ -15,7 +15,7 @@ public class Plane implements Geometry {
      * @param norm2 the second point that used to calculate the normal in a plane
      */
     Plane(Point p, Point norm1, Point norm2) {
-        // first we need to calculate the two vectors by subtracting the points (p2 - p1 & p3 - p1)
+        // First we need to calculate the two vectors by subtracting the points (p2 - p1 & p3 - p1)
         // that would give the two vectors, then we need to do cross product and then normalize the result
         normal = (norm1.subtract(p).crossProduct(norm2.subtract(p))).normalize();
         this.q = p;

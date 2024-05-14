@@ -5,7 +5,7 @@ import primitives.Point;
 /**
  * Geometry interface for all geometry related
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 
     /**
      * getNormal function that calculate the normal with different geometrical shapes (implemented for classes the implements the interface)

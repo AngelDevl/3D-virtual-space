@@ -1,7 +1,7 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
+import primitives.Point;
 
 import java.util.LinkedList;
 import java.util.List;

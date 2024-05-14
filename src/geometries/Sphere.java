@@ -1,6 +1,9 @@
 package geometries;
+import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
+
+import java.util.List;
 
 /**
  * Sphere class that's represent a sphere in a 3D Cartesian coordinate system
@@ -17,9 +20,13 @@ public class Sphere extends RadialGeometry {
         this.center = center;
     }
 
-    @Override public Vector getNormal(Point p) {
+    @Override public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
+
+    @Override public Vector getNormal(Point outerPoint) {
         // To calculate the normal we need to subtract the outer point by the center point and then normalize
-        return (p.subtract(center)).normalize();
+        return (outerPoint.subtract(center)).normalize();
     }
 
     /**
