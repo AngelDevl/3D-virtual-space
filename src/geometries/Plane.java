@@ -5,6 +5,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Plane class that's represent a two-dimensional plane in a 3D Cartesian coordinate system
  */
@@ -24,8 +27,33 @@ public class Plane implements Geometry {
         this.q = p;
     }
 
+    //   normal dot product the start point in plane
+    //  --------------------------------------------  =  intersection
+    //      normal dot product direction vector
+    // According to the formula:
     @Override public List<Point> findIntersections(Ray ray) {
-        return null;
+
+        // Ray cannot start from a plane
+        if (ray.head.equals(q)) return null;
+        Point head = ray.head;
+        Vector direction = ray.direction;
+
+        double NV = alignZero(direction.dotProduct(normal)); // (denominator : direction dot product normal)
+
+        // The denominator is zero (ray parallel to plane) - Undefined
+        if (isZero(NV)) return null;
+
+        // Vector from head (start point) towards to the reference point on the plane
+        Vector vec = q.subtract(head); // (P0 - q)
+        double N_P = alignZero(vec.dotProduct(normal)); // P0 dot product normal (which P0 is vec)
+
+        if (isZero(N_P)) return null;
+
+        double t = alignZero(N_P / NV);
+
+        if (t < 0) return null;
+
+        return List.of(ray.getPoint(t));
     }
 
     /**
