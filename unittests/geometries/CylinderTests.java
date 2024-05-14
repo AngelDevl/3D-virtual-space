@@ -12,6 +12,7 @@ import primitives.Ray;
 public class CylinderTests {
 
     /** Test method for {@link geometries.Cylinder#getNormal(Point)} */
+
     @Test
     void testGetNormal() {
 

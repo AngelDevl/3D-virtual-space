@@ -3,6 +3,7 @@ package geometries;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import primitives.Point;
@@ -81,10 +82,51 @@ public class Polygon implements Geometry {
       }
    }
 
-   @Override
-   public Vector getNormal(Point point) { return plane.getNormal(); }
-
    @Override public List<Point> findIntersections(Ray ray) {
-      return null;
+      // check with plane first
+      List<Point> planeIntersections = plane.findIntersections(ray);
+
+      //check if there are any intersections on the plane
+      if (planeIntersections == null) {
+         return null;
+      }
+
+      // get head and dir
+      Point head = ray.head;
+      Vector direction = ray.direction;
+
+      // get starting vectors like with triangle
+      Vector v1 = head.subtract(vertices.get(0));
+      Vector v2 = head.subtract(vertices.get(1));
+
+      double sign = alignZero(direction.dotProduct(v2.crossProduct(v1)));
+
+      // in this case there are 0 points
+      if (isZero(sign)) {
+         return null;
+      }
+
+      //beginning sign (positive/negative)
+      boolean positive = sign > 0;
+
+      //iterate through all vertices of the polygon (start from 2 because we already did 0 and 1
+      for (int i = 2; i < vertices.size(); i++) {
+         v2 = v1;
+         v1 = head.subtract(vertices.get(i));
+
+         sign = alignZero(direction.dotProduct(v2.crossProduct(v1)));
+         if (isZero(sign)) {
+            return null;
+         }
+
+         if (positive != (sign > 0)) {
+            return null;
+         }
+      }
+      Point point = planeIntersections.getFirst();
+
+      return List.of(point);
    }
+
+   @Override public Vector getNormal(Point point) { return plane.getNormal(); }
 }

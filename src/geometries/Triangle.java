@@ -1,8 +1,12 @@
 package geometries;
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Triangle class that's represent a two-dimensional triangle in a 3D Cartesian coordinate system
@@ -20,7 +24,34 @@ public class Triangle extends Polygon {
     }
 
     @Override public List<Point> findIntersections(Ray ray) {
+        // First we will check if there are any intersection with the plane
+        List<Point> planeIntersections = plane.findIntersections(ray);
+
+        // If there are no intersection with plane there are no with triangle
+        if (planeIntersections == null)
+            return null;
+
+        // Then we will check if the point of intersection is inside a triangle
+        Point head = ray.head;
+        Vector direction = ray.direction;
+
+        Vector v1 = vertices.get(0).subtract(head);
+        Vector v2 = vertices.get(1).subtract(head);
+        Vector v3 = vertices.get(2).subtract(head);
+
+        // cross products
+        double a1 = alignZero(direction.dotProduct(v1.crossProduct(v2)));
+        double a2 = alignZero(direction.dotProduct(v2.crossProduct(v3)));
+        double a3 = alignZero(direction.dotProduct(v3.crossProduct(v1)));
+
+        if(isZero(a1) || isZero(a2) || isZero(a3)){
+            return null;
+        }
+
+        if((a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0)){
+            return List.of(planeIntersections.getFirst());
+        }
+
         return null;
     }
-
 }

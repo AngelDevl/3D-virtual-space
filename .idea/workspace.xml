@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
+      <change afterPath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometries/Plane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Plane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Geometries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Geometries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Intersectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Intersectable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Polygon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Triangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Triangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,9 +65,12 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in ISE5784_7172_5564.executor": "Run",
     "JUnit.CylinderTests.executor": "Run",
+    "JUnit.GeometriesTests.executor": "Run",
     "JUnit.PlaneTests.executor": "Run",
+    "JUnit.PolygonTests (1).executor": "Run",
     "JUnit.PolygonTests.executor": "Run",
     "JUnit.SphereTests.executor": "Run",
+    "JUnit.TriangleTests.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -102,7 +110,7 @@
       <recent name="primitives" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PlaneTests">
+  <component name="RunManager" selected="JUnit.All in ISE5784_7172_5564">
     <configuration name="All in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <option name="PACKAGE_NAME" value="" />
@@ -111,7 +119,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CylinderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GeometriesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
@@ -120,7 +128,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="geometries" />
-      <option name="MAIN_CLASS_NAME" value="geometries.CylinderTests" />
+      <option name="MAIN_CLASS_NAME" value="geometries.GeometriesTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -130,7 +138,7 @@
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geometries.*" />
+          <option name="PATTERN" value="geometries.Intersectable" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -145,27 +153,27 @@
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="unittests.geometries.*" />
+          <option name="PATTERN" value="geometries.Intersectable" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="unittests.geometries" />
-      <option name="MAIN_CLASS_NAME" value="unittests.geometries.PolygonTests" />
+      <option name="PACKAGE_NAME" value="geometries" />
+      <option name="MAIN_CLASS_NAME" value="geometries.PolygonTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SphereTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TriangleTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geometries.*" />
+          <option name="PATTERN" value="geometries.Intersectable" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="geometries" />
-      <option name="MAIN_CLASS_NAME" value="geometries.SphereTests" />
+      <option name="MAIN_CLASS_NAME" value="geometries.TriangleTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -173,11 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlaneTests" />
-        <item itemvalue="JUnit.SphereTests" />
-        <item itemvalue="JUnit.CylinderTests" />
         <item itemvalue="JUnit.All in ISE5784_7172_5564" />
-        <item itemvalue="JUnit.PolygonTests" />
+        <item itemvalue="JUnit.GeometriesTests" />
+        <item itemvalue="JUnit.TriangleTests" />
+        <item itemvalue="JUnit.PolygonTests (1)" />
+        <item itemvalue="JUnit.PlaneTests" />
       </list>
     </recent_temporary>
   </component>

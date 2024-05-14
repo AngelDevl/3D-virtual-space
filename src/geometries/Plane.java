@@ -27,6 +27,19 @@ public class Plane implements Geometry {
         this.q = p;
     }
 
+
+    /**
+     * Plane Constructor that initialize a new Plane object with a normal and a point that lies on the plane.
+     * The constructor normalize the normal vector in case that the passed vector is not normalize
+     * @param p point that lies on the plane
+     * @param normal the normal vector of the plane
+     */
+    Plane(Point p, Vector normal) {
+        this.normal = normal.normalize();
+        this.q = p;
+    }
+
+
     //   normal dot product the start point in plane
     //  --------------------------------------------  =  intersection
     //      normal dot product direction vector
@@ -56,16 +69,6 @@ public class Plane implements Geometry {
         return List.of(ray.getPoint(t));
     }
 
-    /**
-     * Plane Constructor that initialize a new Plane object with a normal and a point that lies on the plane.
-     * The constructor normalize the normal vector in case that the passed vector is not normalize
-     * @param p point that lies on the plane
-     * @param normal the normal vector of the plane
-     */
-    Plane(Point p, Vector normal) {
-        this.normal = normal.normalize();
-        this.q = p;
-    }
 
     @Override public Vector getNormal(Point p) {
         return normal;
