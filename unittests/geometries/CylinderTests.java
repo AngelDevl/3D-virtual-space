@@ -13,7 +13,7 @@ public class CylinderTests {
 
     /** Test method for {@link geometries.Cylinder#getNormal(Point)} */
     @Test
-    void getNormal() {
+    void testGetNormal() {
 
         Point p1 = new Point(1,2,0);
         Vector dir = new Vector(0,1,0);

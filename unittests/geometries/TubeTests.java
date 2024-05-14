@@ -15,7 +15,7 @@ public class TubeTests {
     /** Test method for {@link geometries.Tube#getNormal(Point)} */
 
     @Test
-    void getNormal() {
+    void testGetNormal() {
 
         // ============ Equivalence Partitions Tests ==============
 
