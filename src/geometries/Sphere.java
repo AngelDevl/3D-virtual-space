@@ -5,6 +5,8 @@ import primitives.Point;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * Sphere class that's represent a sphere in a 3D Cartesian coordinate system
  */
@@ -21,7 +23,38 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override public List<Point> findIntersections(Ray ray) {
-        return null;
+        Point rayHead = ray.head;
+        Vector direction = ray.direction;
+
+        // if the start point (head) of the ray is equals to the sphere center
+        // than the only intersection would be on the surface of the sphere only
+        if (rayHead.equals(center)) {
+            return List.of(ray.getPoint(radius));
+        }
+
+        // The point that between the two intersections points (if exists)
+        // Achieved by connecting a new line from head to center,
+        // and then find the Vector of the line by subtracting center with the center between the two intersection points.
+        // After we calculated the vector we can simply do dot product between the direction vector and the one we find has explained above
+        double t = alignZero(direction.dotProduct(center.subtract(rayHead)));
+
+        // Here we use the formula of a circle X^2 + Y^2 = R^2 to find the distance between the center point and t (Point p)
+        double y = alignZero((center.subtract(rayHead)).lengthSquared() - t * t);
+
+        // if the y is equal or greater than the radius that means there are no intersections because the ray is outside the sphere
+        if (y >= radius) return null;
+
+        // To find x we use the radius and the y we found
+        double x = alignZero(Math.sqrt(radius * radius - y));
+
+        double t1 = alignZero(t - x);
+        double t2 = alignZero(t + x);
+
+        if (t1 <= 0 && t2 <= 0) return null;
+        else if (t1 > 0 && t2 <= 0) return List.of(ray.getPoint(t1));
+        else if (t2 > 0 && t1 <= 0) return List.of(ray.getPoint(t2));
+
+        return List.of(ray.getPoint(t1), ray.getPoint(t2));
     }
 
     @Override public Vector getNormal(Point outerPoint) {

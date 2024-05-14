@@ -1,6 +1,9 @@
 package geometries;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Plane class that's represent a two-dimensional plane in a 3D Cartesian coordinate system
@@ -19,6 +22,10 @@ public class Plane implements Geometry {
         // that would give the two vectors, then we need to do cross product and then normalize the result
         normal = (norm1.subtract(p).crossProduct(norm2.subtract(p))).normalize();
         this.q = p;
+    }
+
+    @Override public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 
     /**

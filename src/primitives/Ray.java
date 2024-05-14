@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * Ray class that's represent a line that has a starting point and direction but without an end point
  */
@@ -14,6 +16,14 @@ public class Ray {
     public Ray(Point head, Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
+    }
+
+    public Point getPoint(double t) {
+        if (isZero(t)) {
+            return head;
+        }
+
+        return head.add(direction.scale(t));
     }
 
     @Override public String toString() {
