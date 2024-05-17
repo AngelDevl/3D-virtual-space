@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
-      <change afterPath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometries/Geometries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Geometries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometries/Intersectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Intersectable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometries/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Polygon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometries/Triangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Triangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/primitives/RayTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/RayTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +37,12 @@
     &quot;assignee&quot;: &quot;AngelDevl&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AngelDevl/ISE5784_7172_5564.git&quot;,
-    &quot;accountId&quot;: &quot;5c5cccec-2e05-4b36-a2de-94c8bc4406cd&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:AngelDevl/ISE5784_7172_5564.git",
+    "accountId": "5c5cccec-2e05-4b36-a2de-94c8bc4406cd"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -69,6 +64,7 @@
     "JUnit.PlaneTests.executor": "Run",
     "JUnit.PolygonTests (1).executor": "Run",
     "JUnit.PolygonTests.executor": "Run",
+    "JUnit.RayTests.executor": "Run",
     "JUnit.SphereTests.executor": "Run",
     "JUnit.TriangleTests.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -149,16 +145,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PolygonTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RayTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geometries.Intersectable" />
+          <option name="PATTERN" value="primitives.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="geometries" />
-      <option name="MAIN_CLASS_NAME" value="geometries.PolygonTests" />
+      <option name="PACKAGE_NAME" value="primitives" />
+      <option name="MAIN_CLASS_NAME" value="primitives.RayTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -182,9 +178,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in ISE5784_7172_5564" />
+        <item itemvalue="JUnit.RayTests" />
         <item itemvalue="JUnit.GeometriesTests" />
         <item itemvalue="JUnit.TriangleTests" />
-        <item itemvalue="JUnit.PolygonTests (1)" />
         <item itemvalue="JUnit.PlaneTests" />
       </list>
     </recent_temporary>
@@ -219,6 +215,7 @@
       <workItem from="1714992676400" duration="10583000" />
       <workItem from="1715003587339" duration="2531000" />
       <workItem from="1715011705023" duration="648000" />
+      <workItem from="1715955943075" duration="318000" />
     </task>
     <task id="LOCAL‎-00001" summary="PR01 Added comments &amp; all tests passed | DONE">
       <option name="closed" value="true" />
