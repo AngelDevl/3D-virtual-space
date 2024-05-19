@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
+      <change afterPath="$PROJECT_DIR$/src/renderer/Camera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unittests/renderer/CameraTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/primitives/RayTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/RayTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,11 +94,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\renderer" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\geometries" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\primitives" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\src\test" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\src\geometries" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -215,7 +216,7 @@
       <workItem from="1714992676400" duration="10583000" />
       <workItem from="1715003587339" duration="2531000" />
       <workItem from="1715011705023" duration="648000" />
-      <workItem from="1715955943075" duration="318000" />
+      <workItem from="1715955943075" duration="2469000" />
     </task>
     <task id="LOCAL‎-00001" summary="PR01 Added comments &amp; all tests passed | DONE">
       <option name="closed" value="true" />
