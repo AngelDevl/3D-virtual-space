@@ -18,6 +18,11 @@ public class Ray {
         this.direction = direction.normalize();
     }
 
+    /**
+     * According to the formula of point on ray (p = P0 + V * t)
+     * @param t t for calculating the point
+     * @return A point on a eay
+     */
     public Point getPoint(double t) {
         if (isZero(t)) {
             return head;

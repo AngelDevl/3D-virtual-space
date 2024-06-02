@@ -17,7 +17,7 @@ public class Sphere extends RadialGeometry {
      * @param center the center of the sphere
      * @param radius the radius of the sphere
      */
-    Sphere(Point center, double radius) {
+    public Sphere(Point center, double radius) {
         super(radius);
         this.center = center;
     }
@@ -36,16 +36,17 @@ public class Sphere extends RadialGeometry {
         // Achieved by connecting a new line from head to center,
         // and then find the Vector of the line by subtracting center with the center between the two intersection points.
         // After we calculated the vector we can simply do dot product between the direction vector and the one we find has explained above
-        double t = alignZero(direction.dotProduct(center.subtract(rayHead)));
+        Vector fromCenter = center.subtract(rayHead);
+        double t = alignZero(direction.dotProduct(fromCenter));
 
         // Here we use the formula of a circle X^2 + Y^2 = R^2 to find the distance between the center point and t (Point p)
-        double y = alignZero((center.subtract(rayHead)).lengthSquared() - t * t);
+        double y = Math.sqrt(alignZero(fromCenter.lengthSquared() - t * t));
 
         // if the y is equal or greater than the radius that means there are no intersections because the ray is outside the sphere
         if (y >= radius) return null;
 
         // To find x we use the radius and the y we found
-        double x = alignZero(Math.sqrt(radius * radius - y));
+        double x = alignZero(Math.sqrt(radius * radius - y * y));
 
         double t1 = alignZero(t - x);
         double t2 = alignZero(t + x);

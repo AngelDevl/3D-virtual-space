@@ -86,4 +86,8 @@ public class Point {
      * A Double3 object that represent our point has 3 doubles with x, y, z coordinates
      */
     protected final Double3 xyz;
+
+    public double getX() {
+        return xyz.d1;
+    }
 }
