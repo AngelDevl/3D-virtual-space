@@ -42,14 +42,13 @@ public class VectorTests {
         // ============ Boundary Partitions Tests ==============
 
         //TC01: test for addition with self (same object)
-        Vector vector0 = new Vector(1.0, 2.0, 3.0);
-        Vector expectedSolution = new Vector(2, 4, 6);
-        assertEquals(expectedSolution, vector0.add(vector0),
+        Vector vec = new Vector(1.0, 2.0, 3.0);
+        assertEquals(new Vector(2, 4, 6), vec.add(vec),
                 "Addition with the same object(vector) failed");
 
         //TC02: test for addition with the opposite vector (vector0 + vector1 = vector (0, 0, 0))
         Vector vector1 = new Vector(-1, -2, -3);
-        assertThrows(IllegalArgumentException.class, () -> vector1.add(vector0), "Vector equals to Zero Vector (0, 0, 0)");
+        assertThrows(IllegalArgumentException.class, () -> vector1.add(vec), "Vector equals to Zero Vector (0, 0, 0)");
 
 
         // ============ Equivalence Partitions Tests ==============
@@ -63,7 +62,7 @@ public class VectorTests {
         //TC11: test Vector Equality
 
         Vector vectorD = new Vector(2.0, 4.0, 6.0);
-        assertEquals(vector0.add(vector0), vectorD, "Failed equality addition");
+        assertEquals(vec.add(vec), vectorD, "Failed equality addition");
 
         //TC12: Test if Vector addition goes both ways
         assertEquals(vectorA.add(vectorB), vectorB.add(vectorA), "Vector addition doesn't go both ways");
@@ -94,7 +93,7 @@ public class VectorTests {
 
         //TC10: test Scale by 1
 
-        assertEquals(vector0.scale(1), vector0, "Vector scale by 1 failed");
+        assertEquals(vector0, vector0.scale(1), "Vector scale by 1 failed");
 
 
         //TC11: test scale by 0

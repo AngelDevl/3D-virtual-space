@@ -49,6 +49,8 @@ public class SphereTests {
         Point intersection2 = new Point(1.53484692283495, 0.844948974278318, 0);
 
         var expectedIntersections = List.of(intersection1, intersection2);
+
+
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Ray's line is outside the sphere (0 points)
@@ -57,6 +59,7 @@ public class SphereTests {
         // TC02: Ray starts before and crosses the sphere (2 points)
         List<Point> result = sphere.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0)));
         assertEquals(2, result.size(), "Wrong number of points");
+
         if (result.get(0).getX() > result.get(1).getX())
             result = List.of(result.get(1), result.get(0));
 

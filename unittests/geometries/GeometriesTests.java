@@ -27,8 +27,8 @@ public class GeometriesTests {
         ray = new Ray(new Point(0,-3,0), new Vector(0,0,1));
 
         //TC11 empty collection
-        Geometries emptpCollection = new Geometries();
-        assertNull(emptpCollection.findIntersections(ray), "ERROR: intersect when shouldn't be");
+        Geometries emptyCollection = new Geometries();
+        assertNull(emptyCollection.findIntersections(ray), "ERROR: intersect when shouldn't be");
 
         //TC12 none get cut
         assertNull(geometries.findIntersections(ray), "ERROR: intersect when shouldn't be");

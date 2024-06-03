@@ -21,22 +21,18 @@ public class PointTests {
         //TC01: Simple addition of Vector
         Point p1 = new Point(1, 2, 3);
         Vector v1 = new Vector(1, 2, 3);
-        Point expectedResult = new Point(2, 4, 6);
 
-        assertEquals(p1.add(v1), expectedResult, "Addition between point and vector failed");
+        assertEquals(new Point(2, 4, 6), p1.add(v1), "Addition between point and vector failed");
 
 
         //TC02: Test that addition of different Vectors returns different results
 
-        Vector v2 = new Vector(2, 4, 6);
-        assertNotEquals(p1.add(v1), p1.add(v2), "Adding different vectors to a point return the same result");
+        assertNotEquals(p1.add(v1), p1.add(new Vector(2, 4, 6)), "Adding different vectors to a point return the same result");
 
 
         //TC03: Test adding Vector with negative values
 
-        Vector v3 = new Vector(-4, -5, -6);
-        Point expectedResult2 = new Point(-3, -3, -3);
-        assertEquals(expectedResult2, p1.add(v3),"Addition of Vector with negative numbers failed");
+        assertEquals(new Point(-3, -3, -3), p1.add(new Vector(-4, -5, -6)),"Addition of Vector with negative numbers failed");
 
 
         // =============== Boundary Values Tests ==================
@@ -46,12 +42,11 @@ public class PointTests {
 
         Vector negativeVector = new Vector(-1, -2, -3);
         Point zeroPoint = new Point(0, 0, 0);
-        assertEquals(p1.add(negativeVector), zeroPoint,"Addition with Vector with negative coordinates to the Point failed");
+        assertEquals(zeroPoint, p1.add(negativeVector),"Addition with Vector with negative coordinates to the Point failed");
 
         //TC11: Addition of zero Point
 
-        Point expectedResult3 = new Point(1, 2, 3);
-        assertEquals(expectedResult3, zeroPoint.add(v1),"Addition of zero Point failed");
+        assertEquals(new Point(1, 2, 3), zeroPoint.add(v1),"Addition of zero Point failed");
     }
 
 
@@ -66,8 +61,7 @@ public class PointTests {
 
         Point p1 = new Point(1,2,3);
         Point p2 =  new Point(4,5,6);
-        Vector expectedResult1 = new Vector(3,3,3);
-        assertEquals(expectedResult1, p2.subtract(p1),"Subtraction doesn't work");
+        assertEquals(new Vector(3,3,3), p2.subtract(p1),"Subtraction doesn't work");
 
         //TC02: Test that Subtraction of different Points from the same Point returns different results
 
@@ -83,8 +77,7 @@ public class PointTests {
         //TC04: Test subtracting Point with negative values
 
         Point p4 = new Point(-4, -5, -6);
-        Vector expectedResult2 = new Vector(5, 7, 9);
-        assertEquals(expectedResult2, p1.subtract(p4), "Subtraction of Point with negative values doesn't work");
+        assertEquals(new Vector(5, 7, 9), p1.subtract(p4), "Subtraction of Point with negative values doesn't work");
 
 
         // =============== Boundary Values Tests ==================
@@ -93,14 +86,12 @@ public class PointTests {
         //TC10: Subtraction of zero Point
 
         Point zeroPoint = new Point(0, 0, 0);
-        Vector expectedResult = new Vector(1,2,3);
-        assertEquals(expectedResult, p1.subtract(zeroPoint), "Subtraction of zero Point doesn't return Vector with same coordinates");
+        assertEquals(new Vector(1,2,3), p1.subtract(zeroPoint), "Subtraction of zero Point doesn't return Vector with same coordinates");
 
 
         //TC11: Subtraction from zero Point
 
-        Vector expectedResult3 = new Vector(-1, -2, -3);
-        assertEquals(expectedResult3, zeroPoint.subtract(p1), "Subtraction from zero Point doesn't work");
+        assertEquals(new Vector(-1, -2, -3), zeroPoint.subtract(p1), "Subtraction from zero Point doesn't work");
 
         //TC12: Zero vector returned from subtract
 
@@ -143,7 +134,7 @@ public class PointTests {
         //TC10: Test to check the distance squared from the origin Point (0,0,0)
 
         Point p5 = new Point(0, 0, 0);
-        assertEquals(p1.distanceSquared(p5), 14, DELTA, "Distance from origin doesn't work");
+        assertEquals(14, p1.distanceSquared(p5), DELTA, "Distance from origin doesn't work");
     }
 
     /** Test method for {@link primitives.Point#distance(Point)} */

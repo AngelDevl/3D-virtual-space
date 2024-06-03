@@ -94,7 +94,7 @@ public class Camera implements Cloneable {
             camera.vecRight = (camera.vecTo.crossProduct(camera.vecUp)).normalize();
             camera.viewPlaneCenter = camera.location.add(camera.vecTo.scale(camera.distance));
 
-            return (Camera) camera.clone();
+            return camera.clone();
         }
 
         final private Camera camera = new Camera();

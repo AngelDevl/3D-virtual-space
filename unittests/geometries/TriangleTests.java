@@ -57,7 +57,10 @@ public class TriangleTests {
     public void testFindIntersections() {
         Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
         Plane plane = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
+
+
         // ============ Equivalence Partitions Tests ==============
+
         //TC01 inside triangle
         assertEquals(List.of(new Point(1d/3,1d/3,1d/3)), triangle.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))), "ERROR: bad intersect");
         //TC02 in between triangle rays outside triangle
@@ -72,19 +75,25 @@ public class TriangleTests {
                 "ERROR: wrong intersect with plane");
         assertNull(triangle.findIntersections(ray), "Bad intersection");
 
+
         // =============== Boundary Values Tests ==================
+
         //TC11 intersects on edge
         ray = new Ray(new Point(-1, -1, 0), new Vector(1, 1, 0));
         //check plane first
         assertEquals(List.of(new Point(0.5, 0.5, 0)), plane.findIntersections(ray),
                 "ERROR: Wrong intersection with plane");
         assertNull(triangle.findIntersections(ray), "ERROR: intersect where it shouldn't be");
+
+
         //TC12 intersect on vertex
         ray = new Ray(new Point(-1, 0, 0), new Vector(1, 1, 0));
         //check plane first
         assertEquals(List.of(new Point(0, 1, 0)), plane.findIntersections(ray),
                 "ERROR: Wrong intersection with plane");
         assertNull(triangle.findIntersections(ray), "ERROR: intersect where it shouldn't be");
+
+
         //TC13 intersect on edge continuation
         ray = new Ray(new Point(-2, 0, 0), new Vector(1, 1, 0));
         assertEquals(List.of(new Point(-0.5, 1.5, 0)), plane.findIntersections(ray),
