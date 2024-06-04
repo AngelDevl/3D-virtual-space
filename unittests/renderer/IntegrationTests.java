@@ -57,7 +57,9 @@ public class IntegrationTests {
         return counter;
     }
 
+
     /** test ray integration with camera and finding intersections on sphere. */
+
     @Test
     public void sphereIntegrationTest () {
         //TC01 sphere with radius 1
@@ -79,7 +81,9 @@ public class IntegrationTests {
 
     }
 
+
     /** test ray integration with camera and finding intersections on plane. */
+
     @Test
     public void planeIntegrationTest () {
         builder = builder.setLocation(Point.ZERO).setDirection(new Vector(0,0,-1), new Vector(0,1,0));
@@ -94,7 +98,9 @@ public class IntegrationTests {
         assertEquals(6, intersectAmount(builder, new Plane(new Point(0, 0, -5), new Vector(0,1,1))), error);
     }
 
+
     /** test ray integration with camera and finding intersections on triangle. */
+
     @Test
     public void triangleIntegrationTest () {
         builder = builder.setLocation(Point.ZERO).setDirection(new Vector(0,0,-1), new Vector(0,1,0));

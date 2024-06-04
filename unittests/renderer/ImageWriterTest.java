@@ -27,7 +27,7 @@ public class ImageWriterTest {
             }
         }
 
-
+        // Write the image to the disk
         imageWriter.writeToImage();
     }
 }

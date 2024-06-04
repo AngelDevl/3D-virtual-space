@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import primitives.*;
-import renderer.*;
 import scene.Scene;
-//import scene.Scene;
 
 /**
  * Testing Camera Class
@@ -61,6 +59,5 @@ class CameraTest {
       // BV06: 3X3 Corner (0,0)
       assertEquals(new Ray(Point.ZERO, new Vector(2, -2, -10)),
                    camera2.constructRay(3, 3, 0, 0), badRay);
-
    }
 }
