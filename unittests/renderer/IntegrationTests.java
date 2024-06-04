@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import scene.Scene;
 
 
 public class IntegrationTests {
@@ -29,7 +30,12 @@ public class IntegrationTests {
      */
     private int intersectAmount(Camera.Builder builder, Intersectable geometry){
         // build the camera with a view plane of 3x3 and distance of 1
-        Camera cam = builder.setVpSize(3,3).setVpDistance(1).build();
+        Camera cam = builder.setVpSize(3,3)
+                .setVpDistance(1)
+                .setImageWriter(new ImageWriter("test construct Ray", 500, 800))
+                .setRayTracer(new SimpleRayTracer(new Scene("name")))
+                .build();
+
         // width
         int nX = 3;
         // height
@@ -51,7 +57,9 @@ public class IntegrationTests {
         return counter;
     }
 
+
     /** test ray integration with camera and finding intersections on sphere. */
+
     @Test
     public void sphereIntegrationTest () {
         //TC01 sphere with radius 1
@@ -73,7 +81,9 @@ public class IntegrationTests {
 
     }
 
+
     /** test ray integration with camera and finding intersections on plane. */
+
     @Test
     public void planeIntegrationTest () {
         builder = builder.setLocation(Point.ZERO).setDirection(new Vector(0,0,-1), new Vector(0,1,0));
@@ -88,7 +98,9 @@ public class IntegrationTests {
         assertEquals(6, intersectAmount(builder, new Plane(new Point(0, 0, -5), new Vector(0,1,1))), error);
     }
 
+
     /** test ray integration with camera and finding intersections on triangle. */
+
     @Test
     public void triangleIntegrationTest () {
         builder = builder.setLocation(Point.ZERO).setDirection(new Vector(0,0,-1), new Vector(0,1,0));
