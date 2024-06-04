@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -79,6 +80,27 @@ public class Camera implements Cloneable {
         }
 
         /**
+         * Sets the ImageWriter for the camera
+         * @param imageWriter ImageWriter object
+         * @return the updated this object
+         */
+        public Builder setImageWriter(ImageWriter imageWriter) {
+            camera.imageWriter = imageWriter;
+            return this;
+        }
+
+        /**
+         * Sets the ray tracer
+         * @param rayTracer RayTracerBase object
+         * @return the updated this object
+         */
+        public Builder setRayTracer(RayTracerBase rayTracer) {
+            camera.rayTracer = rayTracer;
+            return this;
+        }
+
+
+        /**
          * build function initializing camera properties and making sure all the needed properties are initialized
          * @return A processed camera object
          */
@@ -90,6 +112,8 @@ public class Camera implements Cloneable {
             if (isZero(camera.height)) throw new MissingResourceException(errorPrefix, className, "height" + errorSuffix);
             if (isZero(camera.width)) throw new MissingResourceException(errorPrefix, className, "width" + errorSuffix);
             if (isZero(camera.distance)) throw new MissingResourceException(errorPrefix, className, "distance" + errorSuffix);
+            if (camera.imageWriter == null) throw new MissingResourceException(errorPrefix, className, "imageWriter" + errorSuffix);
+            if (camera.rayTracer == null) throw new MissingResourceException(errorPrefix, className, "rayTracer" + errorSuffix);
 
             camera.vecRight = (camera.vecTo.crossProduct(camera.vecUp)).normalize();
             camera.viewPlaneCenter = camera.location.add(camera.vecTo.scale(camera.distance));
@@ -135,6 +159,64 @@ public class Camera implements Cloneable {
         return new Ray (location, pij.subtract(location));
     }
 
+    /**
+     * Looping over all the pixels and using castRay function on every pixel to create a ray to the pixel
+     */
+    public void renderImage() {
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
+                castRay(nX, nY, i, j);
+            }
+        }
+    }
+
+    /**
+     * construct a ray in the given row and column and find the color of the pixel using traceRay.
+     * after we find the color we write the color to the right pixel
+     * @param Nx width
+     * @param Ny height
+     * @param i row of the pixel
+     * @param j column of the pixel
+     */
+    private void castRay(int Nx, int Ny, int i, int j) {
+        Ray ray = constructRay(Nx, Ny, i, j);
+        Color col = rayTracer.traceRay(ray);
+        imageWriter.writePixel(i, j, col);
+    }
+
+
+    /**
+     * * This is much faster than the imageWriterTest since we are not running on all the pixels
+     * printGrid function to print grid around the image objects using interval
+     * @param interval interval for when to draw the grid color
+     * @param color the color that we would draw the grid pixels
+     */
+    public void printGrid(int interval, Color color) {
+        if (imageWriter == null) throw new MissingResourceException("Missing image writer.", "", "");
+
+        for (int i = 0; i < imageWriter.getNx(); i += interval) {
+            for (int j = 0; j < imageWriter.getNy(); j++) {
+                imageWriter.writePixel(i, j, color);
+            }
+        }
+
+        for (int j = 0; j < imageWriter.getNy(); j += interval) {
+            for (int i = 0; i < imageWriter.getNx(); i++) {
+                imageWriter.writePixel(i, j, color);
+            }
+        }
+    }
+
+    /**
+     * Calling the imageWriter writeToImage function
+     */
+    public void writeToImage() {
+        this.imageWriter.writeToImage();
+    }
+
     /** @return current camera location*/
     public Point getLocation() { return location; }
 
@@ -176,4 +258,10 @@ public class Camera implements Cloneable {
 
     /** Plane center point */
     private Point viewPlaneCenter;
+
+    // ImageWriter object
+    ImageWriter imageWriter;
+
+    // RayTracerBase object
+    RayTracerBase rayTracer;
 }

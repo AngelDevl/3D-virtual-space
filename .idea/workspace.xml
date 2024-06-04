@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
+      <change afterPath="$PROJECT_DIR$/src/renderer/RayTracerBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/SimpleRayTracer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unittests/renderer/RenderTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/AmbientLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/AmbientLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/primitives/Ray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Ray.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/CylinderTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/PlaneTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/PlaneTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/PolygonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/PolygonTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/SphereTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/SphereTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/geometries/TriangleTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/TriangleTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/primitives/PointTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/PointTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/primitives/VectorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/VectorTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/primitives/RayTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/RayTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/renderer/ImageWriterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/ImageWriterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +71,7 @@
     "JUnit.CameraTest.executor": "Run",
     "JUnit.CylinderTests.executor": "Run",
     "JUnit.GeometriesTests.executor": "Run",
+    "JUnit.ImageWriterTest.executor": "Run",
     "JUnit.IntegrationTests.TriangleTest.executor": "Run",
     "JUnit.IntegrationTests.executor": "Run",
     "JUnit.IntegrationTests.planeIntegrationTest.executor": "Run",
@@ -81,6 +82,7 @@
     "JUnit.PolygonTests (1).executor": "Run",
     "JUnit.PolygonTests.executor": "Run",
     "JUnit.RayTests.executor": "Run",
+    "JUnit.RenderTests.executor": "Run",
     "JUnit.SphereTests.executor": "Run",
     "JUnit.TriangleTests.executor": "Run",
     "JUnit.VectorTests.executor": "Run",
@@ -93,7 +95,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers": "true",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "PR04",
+    "git-widget-placeholder": "PR05",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/noam/IdeaProjects/submit/ISE5784_7172_5564",
     "node.js.detected.package.eslint": "true",
@@ -112,10 +114,10 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\renderer" />
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\src\renderer" />
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\src\primitives" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\geometries" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\primitives" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\src\test" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -148,7 +150,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PointTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5784_7172_5564" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.IntegrationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RayTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
@@ -157,37 +174,22 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="primitives" />
-      <option name="MAIN_CLASS_NAME" value="primitives.PointTests" />
+      <option name="MAIN_CLASS_NAME" value="primitives.RayTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SphereTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RenderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geometries.*" />
+          <option name="PATTERN" value="renderer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="geometries" />
-      <option name="MAIN_CLASS_NAME" value="geometries.SphereTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VectorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5784_7172_5564" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="primitives.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="primitives" />
-      <option name="MAIN_CLASS_NAME" value="primitives.VectorTests" />
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.RenderTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -197,9 +199,9 @@
       <list>
         <item itemvalue="JUnit.All in ISE5784_7172_5564" />
         <item itemvalue="JUnit.CameraTest" />
-        <item itemvalue="JUnit.VectorTests" />
-        <item itemvalue="JUnit.PointTests" />
-        <item itemvalue="JUnit.SphereTests" />
+        <item itemvalue="JUnit.IntegrationTests" />
+        <item itemvalue="JUnit.RayTests" />
+        <item itemvalue="JUnit.RenderTests" />
       </list>
     </recent_temporary>
   </component>
