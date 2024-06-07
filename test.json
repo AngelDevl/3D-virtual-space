@@ -1,0 +1,39 @@
+{
+  "sceneName": "Example Scene",
+  "geometries": [
+    {
+      "type": "Sphere",
+      "center": { "x": 0, "y": 0, "z": -100 },
+      "radius": 50.0
+    },
+    {
+      "type": "Triangle",
+      "vertices": [
+        { "x": -100, "y": 0, "z": -100 },
+        { "x": 0, "y": 100, "z": -100 },
+        { "x": -100, "y": 100, "z": -100 }
+      ]
+    },
+    {
+      "type": "Triangle",
+      "vertices": [
+        { "x": -100, "y": 0, "z": -100 },
+        { "x": 0, "y": -100, "z": -100 },
+        { "x": -100, "y": -100, "z": -100 }
+      ]
+    },
+    {
+      "type": "Triangle",
+      "vertices": [
+        { "x": 100, "y": 0, "z": -100 },
+        { "x": 0, "y": -100, "z": -100 },
+        { "x": 100, "y": -100, "z": -100 }
+      ]
+    }
+  ],
+  "ambientLight": {
+    "color": { "r": 255, "g": 191, "b": 191 },
+    "intensity": { "x": 1.0, "y": 1.0, "z": 1.0 }
+  },
+  "background": { "r": 75, "g": 127, "b": 190 }
+}

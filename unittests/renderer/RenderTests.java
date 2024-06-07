@@ -8,6 +8,10 @@ import geometries.*;
 import lighting.AmbientLight;
 import primitives.*;
 import scene.Scene;
+import scene.SceneLoader;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /** Test rendering a basic image
  * @author Dan */
@@ -40,6 +44,29 @@ public class RenderTests {
          .setImageWriter(new ImageWriter("base render test", 1000, 1000))
          .build()
          .renderImage();
+
+      camera.build().printGrid(100, new Color(YELLOW));
+      camera.build().writeToImage();
+   }
+
+   /** Test for XML based scene - for bonus */
+   @Test
+   public void basicRenderJson() {
+      // enter XML file name and parse from XML file into scene object
+      // using the code you added in appropriate packages
+      // ...
+      // NB: unit tests is not the correct place to put XML parsing code
+
+      try {
+         SceneLoader.loadSceneFromJson(scene, "./test.json");
+      } catch (FileNotFoundException ex) {
+         ex.printStackTrace();
+      }
+
+      camera
+              .setImageWriter(new ImageWriter("json render test", 1000, 1000))
+              .build()
+              .renderImage();
 
       camera.build().printGrid(100, new Color(YELLOW));
       camera.build().writeToImage();
