@@ -3,8 +3,6 @@ import primitives.Ray;
 import primitives.Vector;
 import primitives.Point;
 
-import java.util.List;
-
 import static primitives.Util.isZero;
 import static primitives.Util.alignZero;
 

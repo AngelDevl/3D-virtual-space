@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.Ray;
-import primitives.Point;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * Geometries class that's represent all geometries objects that Intersectable in a 3D Cartesian coordinate system
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
     /**
      * Geometries Constructor to initialize the geoObjects - using add to add all the Intersectable objects
@@ -19,6 +18,7 @@ public class Geometries implements Intersectable {
         add(geometries);
     }
 
+    // A default constructor for Geometries
     public Geometries() {
 
     }
@@ -33,10 +33,10 @@ public class Geometries implements Intersectable {
     }
 
 
-    @Override public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = null;
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = null;
         for (Intersectable object : geoObjects) {
-            List<Point> currentIntersections = object.findIntersections(ray);
+            List<GeoPoint> currentIntersections = object.findGeoIntersections(ray);
             if (currentIntersections == null) {
                 continue;
             }
@@ -51,6 +51,7 @@ public class Geometries implements Intersectable {
 
         return intersections;
     }
+
 
     private final List<Intersectable> geoObjects = new LinkedList<>();
 }

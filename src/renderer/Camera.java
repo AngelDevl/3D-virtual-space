@@ -5,12 +5,14 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+/**
+ * Class for camera - used for rendering the image
+ */
 public class Camera implements Cloneable {
 
     private Camera() {
@@ -27,6 +29,9 @@ public class Camera implements Cloneable {
     }
 
 
+    /**
+     * nested builder class to build the camera
+     */
     public static class Builder {
 
         /**
@@ -118,7 +123,7 @@ public class Camera implements Cloneable {
             camera.vecRight = (camera.vecTo.crossProduct(camera.vecUp)).normalize();
             camera.viewPlaneCenter = camera.location.add(camera.vecTo.scale(camera.distance));
 
-            return camera.clone();
+            return (Camera) camera.clone();
         }
 
         final private Camera camera = new Camera();
@@ -160,7 +165,8 @@ public class Camera implements Cloneable {
     }
 
     /**
-     * Looping over all the pixels and using castRay function on every pixel to create a ray to the pixel
+     * Looping over all the pixels and using castRay function on every pixel to create a ray to the pixel to find the color
+     * and write the color to the pixel
      */
     public void renderImage() {
         int nX = imageWriter.getNx();

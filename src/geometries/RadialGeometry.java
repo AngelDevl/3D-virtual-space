@@ -4,7 +4,7 @@ package geometries;
 /**
  * RadialGeometry class that's serve as a parent class to all geometrical shapes that are circular and need a radius
  */
-abstract public class RadialGeometry implements Geometry {
+abstract public class RadialGeometry extends Geometry {
 
     /**
      * RadialGeometry Constructor to initialize a radius

@@ -23,7 +23,7 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    @Override public List<Point> findIntersections(Ray ray) {
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         // First we will check if there are any intersection with the plane
         List<Point> planeIntersections = plane.findIntersections(ray);
 
@@ -44,12 +44,12 @@ public class Triangle extends Polygon {
         double a2 = alignZero(direction.dotProduct(v2.crossProduct(v3)));
         double a3 = alignZero(direction.dotProduct(v3.crossProduct(v1)));
 
-        if(isZero(a1) || isZero(a2) || isZero(a3)){
+        if (isZero(a1) || isZero(a2) || isZero(a3)){
             return null;
         }
 
-        if((a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0)){
-            return List.of(planeIntersections.getFirst());
+        if ((a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0)){
+            return List.of(new GeoPoint(this, planeIntersections.getFirst()));
         }
 
         return null;

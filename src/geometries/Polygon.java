@@ -1,4 +1,3 @@
-
 package geometries;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import primitives.Vector;
  * system
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
    /** List of polygon's vertices */
    protected final List<Point> vertices;
    /** Associated plane in which the polygon lays */
@@ -82,7 +81,8 @@ public class Polygon implements Geometry {
       }
    }
 
-   @Override public List<Point> findIntersections(Ray ray) {
+
+   @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
       // check with plane first
       List<Point> planeIntersections = plane.findIntersections(ray);
 
@@ -123,9 +123,10 @@ public class Polygon implements Geometry {
             return null;
          }
       }
+
       Point point = planeIntersections.getFirst();
 
-      return List.of(point);
+      return List.of(new GeoPoint(this, point));
    }
 
    @Override public Vector getNormal(Point point) { return plane.getNormal(); }

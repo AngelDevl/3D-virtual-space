@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
+/**
+ * abstract class Ray Tracer Base - used to trace the ray and decide the pixel color pixel and ray intersection
+ */
 public abstract class RayTracerBase {
 
     /**

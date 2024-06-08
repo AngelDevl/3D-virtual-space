@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 
-
+/**
+ * PointDeserializer class
+ */
 class PointDeserializer implements JsonDeserializer<Point> {
     @Override
     public Point deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -21,6 +23,9 @@ class PointDeserializer implements JsonDeserializer<Point> {
     }
 }
 
+/**
+ * Double3Deserializer class
+ */
 class Double3Deserializer implements JsonDeserializer<Double3> {
     @Override
     public Double3 deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -32,6 +37,9 @@ class Double3Deserializer implements JsonDeserializer<Double3> {
     }
 }
 
+/**
+ * ColorDeserializer class
+ */
 class ColorDeserializer implements JsonDeserializer<Color> {
     @Override
     public Color deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -43,8 +51,18 @@ class ColorDeserializer implements JsonDeserializer<Color> {
     }
 }
 
+/**
+ * SceneLoader class - *BONUS* in charge of loading a scene from a json file and fill a scene object with the data inside the json file
+ */
 public class SceneLoader {
 
+    /**
+     * loadSceneFromJson function loads a scene data from a json file and fill the given json file with that data
+     * using "gson" library to parse the data from the json to the scene object
+     * @param scene the scene object which would be modified
+     * @param filePath the file path of the json file
+     * @throws FileNotFoundException if the json file could not been found we will throw a FileNotFoundException
+     */
     public static void loadSceneFromJson(Scene scene, String filePath) throws FileNotFoundException {
         GsonBuilder gsonBuilder = new GsonBuilder();
 

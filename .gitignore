@@ -1,5 +1,4 @@
 ### IntelliJ IDEA ###
-test.json
 out/
 images/
 !**/src/main/**/out/

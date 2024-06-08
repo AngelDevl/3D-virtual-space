@@ -22,14 +22,15 @@ public class Sphere extends RadialGeometry {
         this.center = center;
     }
 
-    @Override public List<Point> findIntersections(Ray ray) {
+
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point rayHead = ray.head;
         Vector direction = ray.direction;
 
         // if the start point (head) of the ray is equals to the sphere center
         // than the only intersection would be on the surface of the sphere only
         if (rayHead.equals(center)) {
-            return List.of(ray.getPoint(radius));
+            return List.of(new GeoPoint(this, ray.getPoint(radius)));
         }
 
         // The point that between the two intersections points (if exists)
@@ -52,11 +53,12 @@ public class Sphere extends RadialGeometry {
         double t2 = alignZero(t + x);
 
         if (t1 <= 0 && t2 <= 0) return null;
-        else if (t1 > 0 && t2 <= 0) return List.of(ray.getPoint(t1));
-        else if (t2 > 0 && t1 <= 0) return List.of(ray.getPoint(t2));
+        else if (t1 > 0 && t2 <= 0) return List.of(new GeoPoint(this, ray.getPoint(t1)));
+        else if (t2 > 0 && t1 <= 0) return List.of(new GeoPoint(this, ray.getPoint(t2)));
 
-        return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
     }
+
 
     @Override public Vector getNormal(Point outerPoint) {
         // To calculate the normal we need to subtract the outer point by the center point and then normalize
