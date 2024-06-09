@@ -139,4 +139,13 @@ public class PolygonTests {
               "ERROR: Wrong intersection with plane");
       assertNull(poly.findIntersections(ray), "ERROR: intersect where it shouldn't be");
    }
+
+   /** tests findGeoIntersections for max distance */
+   @Test
+   public void testFindGeoIntersections(){
+      Polygon poly = new Polygon(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
+
+      //TC01 out of bounds check
+      assertNull(poly.findGeoIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1)), 0.1), "ERROR: bad intersect for max distance");
+   }
 }

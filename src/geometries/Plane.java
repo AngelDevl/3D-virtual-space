@@ -44,10 +44,11 @@ public class Plane extends Geometry {
     //  --------------------------------------------  =  intersection
     //      normal dot product direction vector
     // According to the formula:
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         // Ray cannot start from a plane
         if (ray.head.equals(q)) return null;
+
         Point head = ray.head;
         Vector direction = ray.direction;
 
@@ -65,38 +66,13 @@ public class Plane extends Geometry {
         double t = alignZero(N_P / NV);
 
         if (t < 0) return null;
+
+        // if intersection is after the max distance.
+        if (alignZero(t - maxDistance) > 0) {
+            return null;
+        }
 
         return List.of(new GeoPoint(this, ray.getPoint(t)));
-    }
-
-
-    //   normal dot product the start point in plane
-    //  --------------------------------------------  =  intersection
-    //      normal dot product direction vector
-    // According to the formula:
-    @Override public List<Point> findIntersections(Ray ray) {
-
-        // Ray cannot start from a plane
-        if (ray.head.equals(q)) return null;
-        Point head = ray.head;
-        Vector direction = ray.direction;
-
-        double NV = alignZero(direction.dotProduct(normal)); // (denominator : direction dot product normal)
-
-        // The denominator is zero (ray parallel to plane) - Undefined
-        if (isZero(NV)) return null;
-
-        // Vector from head (start point) towards to the reference point on the plane
-        Vector vec = q.subtract(head); // (P0 - q)
-        double N_P = alignZero(vec.dotProduct(normal)); // P0 dot product normal (which P0 is vec)
-
-        if (isZero(N_P)) return null;
-
-        double t = alignZero(N_P / NV);
-
-        if (t < 0) return null;
-
-        return List.of(ray.getPoint(t));
     }
 
 

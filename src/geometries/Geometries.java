@@ -18,7 +18,7 @@ public class Geometries extends Intersectable {
         add(geometries);
     }
 
-    // A default constructor for Geometries
+    // Default constructor for Geometries
     public Geometries() {
 
     }
@@ -33,10 +33,10 @@ public class Geometries extends Intersectable {
     }
 
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> intersections = null;
         for (Intersectable object : geoObjects) {
-            List<GeoPoint> currentIntersections = object.findGeoIntersections(ray);
+            List<GeoPoint> currentIntersections = object.findGeoIntersections(ray, maxDistance);
             if (currentIntersections == null) {
                 continue;
             }

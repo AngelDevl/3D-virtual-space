@@ -22,7 +22,7 @@ public class AmbientLight extends Light {
      * @param ia Fill color
      * @param ka Fill light factor
      */
-    AmbientLight(Color ia, double ka) {
+    public AmbientLight(Color ia, double ka) {
         super(ia.scale(ka));
     }
 

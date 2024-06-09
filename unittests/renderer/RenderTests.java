@@ -11,7 +11,6 @@ import scene.Scene;
 import scene.SceneLoader;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /** Test rendering a basic image
  * @author Dan */

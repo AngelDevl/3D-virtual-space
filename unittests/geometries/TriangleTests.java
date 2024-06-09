@@ -100,4 +100,13 @@ public class TriangleTests {
                 "ERROR: Wrong intersection with plane");
         assertNull(triangle.findIntersections(ray), "ERROR: intersect where it shouldn't be");
     }
+
+    /** tests findGeoIntersections for max distance */
+    @Test
+    public void testFindGeoIntersections(){
+        Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
+
+        //TC01 out of bounds check
+        assertNull(triangle.findGeoIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1)), 0.1), "ERROR: bad intersect for max distance");
+    }
 }

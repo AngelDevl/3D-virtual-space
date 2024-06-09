@@ -125,4 +125,21 @@ public class SphereTests {
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         assertNull(sphere.findIntersections(new Ray(new Point(-1,0,0), new Vector(0,1,0))), "ERROR: wrong point when orthogonal to center");
     }
+
+
+    /** Test method for {@link geometries.Sphere#findGeoIntersections(primitives.Ray, double)}.*/
+    // Test for max distance - stage 7
+
+    @Test
+    public void findGeoIntersections(){
+        Sphere sphere = new Sphere(new Point(1, 0, 0), 1d);
+        List<Intersectable.GeoPoint> result = sphere.findGeoIntersections(new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0)), 0.5);
+
+        //TC01 max distance before sphere
+        assertNull(result, "Wrong number of points for out of bound check");
+
+        //TC02 max distance in middle of sphere
+        result = sphere.findGeoIntersections(new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0)), 1.5);
+        assertEquals(1, result.size(), "Wrong number of points for out of bound check");
+    }
 }

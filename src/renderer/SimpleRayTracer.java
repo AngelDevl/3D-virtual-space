@@ -37,13 +37,33 @@ public class SimpleRayTracer extends RayTracerBase {
 
 
     /**
+     * Checking for shading between a point and the light source
+     * @param gp the GeoPoint to check if shaded
+     * @param l direction from light to point
+     * @param n normal from the object at the point
+     * @param nl dot product of n & l params
+     * @param lightSource the light source
+     * @return if GeoPoint is unshaded return true else false
+     */
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, double nl, LightSource lightSource) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector epsVector = n.scale(nl < 0 ? DELTA : -1 * DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(point, lightDirection);
+
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(gp.point));
+
+        return intersections == null;
+    }
+
+    /**
      * Calculate the color at a given point
-     * @param point point to calculate the color
+     * @param geoPoint GeoPoint to calculate the color
      * @return the color at the given point
      */
-    private Color calcColor(GeoPoint point, Ray ray) {
+    private Color calcColor(GeoPoint geoPoint, Ray ray) {
         return scene.ambientLight.getIntensity()
-                .add(calcLocalEffects(point, ray));
+                .add(calcLocalEffects(geoPoint, ray));
     }
 
 
@@ -69,7 +89,7 @@ public class SimpleRayTracer extends RayTracerBase {
             Vector l = lightSource.getL(geoPoint.point);
             double nl = alignZero(n.dotProduct(l));
 
-            if (nl * nv > 0) {
+            if ((nl * nv > 0) && unshaded(geoPoint, l, n, nl, lightSource)) {
                 Color lightIntensity = lightSource.getIntensity(geoPoint.point);
                 color = color.add(calcDiffusive(kd, nl, lightIntensity), calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity));
             }
@@ -107,4 +127,7 @@ public class SimpleRayTracer extends RayTracerBase {
         double vr = alignZero(v.dotProduct(l.add(n.scale(-2 * nl))));
         return lightIntensity.scale(ks.scale(Math.pow(Math.max(0, -1 * vr), nShininess)));
     }
+
+    // size for moving the main axis for shading rays
+    private static final double DELTA = 0.1;
 }

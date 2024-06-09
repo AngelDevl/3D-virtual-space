@@ -23,9 +23,9 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         // First we will check if there are any intersection with the plane
-        List<Point> planeIntersections = plane.findIntersections(ray);
+        List<GeoPoint> planeIntersections = plane.findGeoIntersections(ray, maxDistance);
 
         // If there are no intersection with plane there are no with triangle
         if (planeIntersections == null)
@@ -49,7 +49,7 @@ public class Triangle extends Polygon {
         }
 
         if ((a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0)){
-            return List.of(new GeoPoint(this, planeIntersections.getFirst()));
+            return List.of(new GeoPoint(this, planeIntersections.getFirst().point));
         }
 
         return null;
