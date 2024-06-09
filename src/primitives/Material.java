@@ -26,6 +26,26 @@ public class Material {
     }
 
     /**
+     * Setter for kT using double type
+     * @param kT new double value
+     * @return this - current object
+     */
+    public Material setKt(double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
+
+    /**
+     * Setter for kR using double type
+     * @param kR new double value
+     * @return this - current object
+     */
+    public Material setKr(double kR) {
+        this.kR = new Double3(kR);
+        return this;
+    }
+
+    /**
      * Setter for kD
      * @param kD new Double3 value
      * @return this - current object
@@ -46,6 +66,26 @@ public class Material {
     }
 
     /**
+     * Setter for kT
+     * @param kT new Double3 value
+     * @return this - current object
+     */
+    public Material setKt(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    /**
+     * Setter for kR
+     * @param kR new Double3 value
+     * @return this - current object
+     */
+    public Material setKr(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    /**
      * Setter for Shininess
      * @param nShininess level of shininess
      * @return this - current object
@@ -60,6 +100,12 @@ public class Material {
 
     /** Specular coefficient */
     public Double3 kS = Double3.ZERO;
+
+    /** transparency coefficient */
+    public Double3 kT = Double3.ZERO;
+
+    /** reflection coefficient */
+    public Double3 kR = Double3.ZERO;
 
     //hw page says init at 0, presentation says 1
     /** represents how concentrated the shininess is*/

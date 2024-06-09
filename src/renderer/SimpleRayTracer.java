@@ -9,6 +9,7 @@ import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * SimpleRayTracer class - inheriting class
@@ -25,12 +26,8 @@ public class SimpleRayTracer extends RayTracerBase {
 
 
     @Override public Color traceRay(Ray ray) {
-        List<GeoPoint> intersections = this.scene.geometries.findGeoIntersections(ray);
-        if (intersections == null) {
-            return this.scene.background;
-        }
-
-        GeoPoint closestIntersection = ray.findClosestGeoPoint(intersections);
+        GeoPoint closestIntersection = findClosestIntersection(ray);
+        if (closestIntersection == null) { return scene.background; }
 
         return calcColor(closestIntersection, ray);
     }
@@ -46,6 +43,10 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return if GeoPoint is unshaded return true else false
      */
     private boolean unshaded(GeoPoint gp, Vector l, Vector n, double nl, LightSource lightSource) {
+        if (gp.geometry.getMaterial().kT == Double3.ZERO) {
+            return true;
+        }
+
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector epsVector = n.scale(nl < 0 ? DELTA : -1 * DELTA);
         Point point = gp.point.add(epsVector);
@@ -62,10 +63,78 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return the color at the given point
      */
     private Color calcColor(GeoPoint geoPoint, Ray ray) {
-        return scene.ambientLight.getIntensity()
-                .add(calcLocalEffects(geoPoint, ray));
+        return calcColor(geoPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
+                .add(scene.ambientLight.getIntensity());
     }
 
+
+    private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
+        Color color = calcLocalEffects(gp, ray);
+        return level == 1 ? color : color.add(calcGlobalEffects(gp, ray, level, k));
+    }
+
+    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
+        Material material = gp.geometry.getMaterial();
+        return calcGlobalEffect(constructRefractedRay(gp.point, ray.direction, gp.geometry.getNormal(gp.point)), material.kT, level, k)
+                .add(calcGlobalEffect(constructReflectedRay(gp.point, ray.direction, gp.geometry.getNormal(gp.point)), material.kR, level, k));
+    }
+
+
+    private Color calcGlobalEffect(Ray ray, Double3 kx, int level, Double3 k) {
+        Double3 kkx = kx.product(k);
+        if (kkx.lowerThan(MIN_CALC_COLOR_K)) {
+            return Color.BLACK;
+        }
+
+        GeoPoint gp = findClosestIntersection(ray);
+        return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)).scale(kx);
+    }
+
+    /**
+     * find the closest intersection to the ray out of all the geometries
+     * @param ray ray to calculate for
+     * @return closest point
+     */
+    private GeoPoint findClosestIntersection(Ray ray) {
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
+        if (intersections == null) {
+            return null;
+        }
+        return ray.findClosestGeoPoint(intersections);
+    }
+
+    /**
+     * construct the refracted ray but first make sure nv is zero
+     * @param point point to caclulate for
+     * @param direction direction vector of ray
+     * @param normal normal vector
+     * @return secondary ray
+     */
+    private Ray constructRefractedRay(Point point, Vector direction, Vector normal) {
+        double vn = direction.dotProduct(normal);
+
+        if (isZero(alignZero(vn))) {
+            return null;
+        }
+        return new Ray(point, normal, direction);
+    }
+
+    /**
+     * construct reflected ray using equation in presentation according to: 𝒓 = 𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏) ∙ 𝒏
+     * @param point point to calculate for
+     * @param direction direction vector
+     * @param normal normal vector
+     * @return secondary ray
+     */
+    private Ray constructReflectedRay(Point point, Vector direction, Vector normal) {
+        double vn = direction.dotProduct(normal);
+        if (isZero(alignZero(vn))) {
+            return null;
+        }
+
+        Vector r = direction.subtract(normal.scale(2 * vn));
+        return new Ray(point, normal, r);
+    }
 
     /**
      * calculate the local affect using phong (iE + sum((kD*abs(lI*n)+kS*(max(0, -v*r))^nSh)*iLi))
@@ -130,4 +199,8 @@ public class SimpleRayTracer extends RayTracerBase {
 
     // size for moving the main axis for shading rays
     private static final double DELTA = 0.1;
+
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final Double3 INITIAL_K = Double3.ONE;
 }

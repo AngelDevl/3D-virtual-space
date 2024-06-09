@@ -4,6 +4,7 @@ import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -20,6 +21,26 @@ public class Ray {
     public Ray(Point head, Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
+    }
+
+    /**
+     * Constructor for ray deflected by DELTA
+     * @param head origin
+     * @param n normal vector
+     * @param direction direction
+     */
+    public Ray(Point head, Vector n, Vector direction) {
+        this.direction = direction.normalize();
+        double nv = alignZero(n.dotProduct(this.direction));
+
+        Vector delta = n.scale(DELTA);
+        if (nv < 0)
+            delta = delta.scale(-1);
+
+        if(isZero(nv)) {
+            this.head = head;
+        } else
+            this.head = head.add(delta);
     }
 
     /**
@@ -92,4 +113,7 @@ public class Ray {
      * The direction vector that's represent the direction of the line
      */
     public final Vector direction;
+
+    /** amount to move ray's head when calculating shadows */
+    private static final double DELTA = 0.1;
 }
