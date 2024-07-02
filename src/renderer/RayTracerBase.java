@@ -10,6 +10,11 @@ import scene.Scene;
 public abstract class RayTracerBase {
 
     /**
+     *The scene to trace ray in
+     */
+    protected Scene scene;
+
+    /**
      * RayTracerBase constructor to set a scene
      * @param scene the scene to set
      */
@@ -24,10 +29,4 @@ public abstract class RayTracerBase {
      * @return the color that the ray hits
      */
     public abstract Color traceRay(Ray ray);
-
-
-    /**
-     *The scene to trace ray in
-     */
-    protected Scene scene;
 }

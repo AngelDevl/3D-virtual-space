@@ -13,6 +13,22 @@ import java.util.List;
  */
 public class Scene {
 
+    /** Name os the scene */
+    public String name;
+
+    /** Background color of the scene */
+    public Color background = Color.BLACK;
+
+    /** AmbientLight - initialize to black by default*/
+    public AmbientLight ambientLight = AmbientLight.NONE;
+
+    /** Geometries for the scene */
+    public Geometries geometries = new Geometries();
+
+    /** List of all the lights that would be represented in the scene */
+    public List<LightSource> lights = new LinkedList<>();
+
+
     /**
      * Scene constructor to initialize the scene name
      * @param name name of the scene
@@ -63,19 +79,4 @@ public class Scene {
         this.lights = lights;
         return this;
     }
-
-    /** Name os the scene */
-    public String name;
-
-    /** Background color of the scene */
-    public Color background = Color.BLACK;
-
-    /** AmbientLight - initialize to black by default*/
-    public AmbientLight ambientLight = AmbientLight.NONE;
-
-    /** Geometries for the scene */
-    public Geometries geometries = new Geometries();
-
-    /** List of all the lights that would be represented in the scene */
-    public List<LightSource> lights = new LinkedList<>();
 }

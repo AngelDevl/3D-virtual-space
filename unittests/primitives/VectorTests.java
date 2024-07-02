@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 /** Unit tests for Vector */
 public class VectorTests {
 
+    public static final double DELTA = 1e-10;
+
     /** Test method for {@link primitives.Vector#Vector(double, double, double)} */
 
     @Test
@@ -17,7 +19,8 @@ public class VectorTests {
 
         //============ Boundary Partitions Tests ==============
 
-        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0), "Constructor (x, y, z) didn't throw an IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0),
+                "Constructor (x, y, z) didn't throw an IllegalArgumentException");
     }
 
     /** Test method for {@link primitives.Vector#Vector(Double3)} */
@@ -30,7 +33,8 @@ public class VectorTests {
 
         //============ Boundary Partitions Tests ==============
 
-        assertThrows(IllegalArgumentException.class, () -> new Vector(Double3.ZERO), "Constructor (Double3) didn't throw an IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(Double3.ZERO),
+                "Constructor (Double3) didn't throw an IllegalArgumentException");
     }
 
 
@@ -42,13 +46,13 @@ public class VectorTests {
         // ============ Boundary Partitions Tests ==============
 
         //TC01: test for addition with self (same object)
-        Vector vec = new Vector(1.0, 2.0, 3.0);
-        assertEquals(new Vector(2, 4, 6), vec.add(vec),
+        assertEquals(new Vector(2, 4, 6), new Vector(1.0, 2.0, 3.0).add(new Vector(1.0, 2.0, 3.0)),
                 "Addition with the same object(vector) failed");
 
         //TC02: test for addition with the opposite vector (vector0 + vector1 = vector (0, 0, 0))
         Vector vector1 = new Vector(-1, -2, -3);
-        assertThrows(IllegalArgumentException.class, () -> vector1.add(vec), "Vector equals to Zero Vector (0, 0, 0)");
+        assertThrows(IllegalArgumentException.class, () -> vector1.add(new Vector(1.0, 2.0, 3.0)),
+                "Vector equals to Zero Vector (0, 0, 0)");
 
 
         // ============ Equivalence Partitions Tests ==============
@@ -57,12 +61,12 @@ public class VectorTests {
 
         Vector vectorA = new Vector(2.0, 2.0, 2.0);
         Vector vectorB = new Vector(1.0, 1.0, 2.0);
-        assertNotEquals(vectorA.add(vectorB), vectorA, "Vector inequality failed");
+        assertNotEquals(vectorA, vectorA.add(vectorB), "Vector inequality failed");
 
         //TC11: test Vector Equality
 
-        Vector vectorD = new Vector(2.0, 4.0, 6.0);
-        assertEquals(vec.add(vec), vectorD, "Failed equality addition");
+        assertEquals(new Vector(2.0, 4.0, 6.0), new Vector(1.0, 2.0, 3.0).add(new Vector(1.0, 2.0, 3.0)),
+                "Failed equality addition");
 
         //TC12: Test if Vector addition goes both ways
         assertEquals(vectorA.add(vectorB), vectorB.add(vectorA), "Vector addition doesn't go both ways");
@@ -98,7 +102,8 @@ public class VectorTests {
 
         //TC11: test scale by 0
 
-        assertThrows(IllegalArgumentException.class, () -> vector0.scale(0), "Vector equals to Zero Vector (0, 0, 0)");
+        assertThrows(IllegalArgumentException.class, () -> vector0.scale(0),
+                "Vector equals to Zero Vector (0, 0, 0)");
     }
 
     /** Test case for {@link primitives.Vector#dotProduct(Vector)} */
@@ -113,7 +118,7 @@ public class VectorTests {
 
         Vector vectorA = new Vector(1.0, 2.0, 3.0);
         Vector vectorB = new Vector(4.0, 5.0, 6.0);
-        assertEquals(32.0, vectorA.dotProduct(vectorB), 1e-10,
+        assertEquals(32.0, vectorA.dotProduct(vectorB), DELTA,
                 "Failed dot product standard (positive numbers) test");
 
 
@@ -121,7 +126,7 @@ public class VectorTests {
 
         Vector vectorNegative = new Vector(-1.0, -2.0, -3.0);
         Vector vectorPlus = new Vector(4.0, 5.0, 6.0);
-        assertEquals(-32.0, vectorPlus.dotProduct(vectorNegative), 1e-10,
+        assertEquals(-32.0, vectorPlus.dotProduct(vectorNegative), DELTA,
                 "Failed negative and positive dot product test");
 
 
@@ -132,19 +137,20 @@ public class VectorTests {
 
         Vector vectorX = new Vector(1.0, 0.0, 0.0);
         Vector vectorY = new Vector(0.0, 1.0, 0.0);
-        assertEquals(0.0, vectorY.dotProduct(vectorX), 1e-10,
+        assertEquals(0.0, vectorY.dotProduct(vectorX), DELTA,
                 "Failed dot product with orthogonal Vectors");
 
 
         //TC11: test dot product with self(same object)
 
         // length squared is dot product of a vector
-        assertEquals(vectorA.lengthSquared(), vectorA.dotProduct(vectorA), 1e-10,
+        assertEquals(vectorA.lengthSquared(), vectorA.dotProduct(vectorA), DELTA,
                 "Dot product with self(same object) failed");
 
 
         //TC12: Test dot product with opposite vector
-        assertEquals(-14, vectorA.dotProduct(vectorNegative), "Dot product with opposite vector failed");
+        assertEquals(-14, vectorA.dotProduct(vectorNegative),
+                "Dot product with opposite vector failed");
     }
 
     /** Test case for {@link primitives.Vector#crossProduct(Vector)} */
@@ -184,7 +190,8 @@ public class VectorTests {
 
         //TC11: test cross product with self
 
-        assertThrows(IllegalArgumentException.class, () -> vectorX.crossProduct(vectorX), "Vector equals to Zero Vector (0, 0, 0)");
+        assertThrows(IllegalArgumentException.class, () -> vectorX.crossProduct(vectorX),
+                "Vector equals to Zero Vector (0, 0, 0)");
     }
 
     /** Test case for {@link Vector#lengthSquared()} */
@@ -197,14 +204,14 @@ public class VectorTests {
         //TC01: test Length Squared Standard
 
         Vector vector = new Vector(1.0, 2.0, 3.0);
-        assertEquals(14.0, vector.lengthSquared(), 1e-10,
+        assertEquals(14.0, vector.lengthSquared(), DELTA,
                 "Failed test length squared standard");
 
 
         //TC02: test length squared with negative components
 
         Vector vectorNegative = new Vector(-1.0, -2.0, -3.0);
-        assertEquals(14.0, vectorNegative.lengthSquared(), 1e-10,
+        assertEquals(14.0, vectorNegative.lengthSquared(), DELTA,
                 "Failed test length squared with negative components"); // Squared magnitude is the same regardless of signs
 
 
@@ -224,14 +231,14 @@ public class VectorTests {
         //TC01: test length standard
 
         Vector vector = new Vector(1.0, 2.0, 3.0);
-        assertEquals(Math.sqrt(14.0), vector.length(), 1e-10,
+        assertEquals(Math.sqrt(14.0), vector.length(), DELTA,
                 "Failed test length standard");
 
 
         //TC02: test length with negative components
 
         Vector vectorNegative = new Vector(-1.0, -2.0, -3.0);
-        assertEquals(Math.sqrt(14.0), vectorNegative.length(), 1e-10,
+        assertEquals(Math.sqrt(14.0), vectorNegative.length(), DELTA,
                 "Failed test length with negative components");
 
 
@@ -256,7 +263,14 @@ public class VectorTests {
         //TC02: test normalize with negative components
 
         Vector vectorNegative = new Vector(-4.0, 3.0, 0);
-        assertEquals(new Vector(-4.0 / vectorNegative.length(), 3.0 / vectorNegative.length(), 0 / vectorNegative.length()), vectorNegative.normalize(),
+        assertEquals(
+                new Vector(
+                        -4.0 / vectorNegative.length(),
+                        3.0 / vectorNegative.length(),
+                        0 / vectorNegative.length()
+                ),
+
+                vectorNegative.normalize(),
                 "Failed test normalize with negative components");
 
 

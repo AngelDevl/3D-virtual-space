@@ -13,6 +13,19 @@ import static primitives.Util.isZero;
 public class Ray {
 
     /**
+     * The start of the line
+     */
+    public final Point head;
+
+    /**
+     * The direction vector that's represent the direction of the line
+     */
+    public final Vector direction;
+
+    /** amount to move ray's head when calculating shadows */
+    private static final double DELTA = 0.1;
+
+    /**
      * Ray constructor to initialize a new Ray object with head and direction
      * (direction should be normalized)
      * @param head a new head point to assign head with
@@ -91,29 +104,17 @@ public class Ray {
     }
 
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "Ray {" + head + ", " + direction + "}";
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
 
         if (obj == null) return false;
 
         return (obj instanceof Ray other) && head.equals(other.head) && direction.equals(other.direction);
     }
-
-
-    /**
-     * The start of the line
-     */
-    public final Point head;
-
-    /**
-     * The direction vector that's represent the direction of the line
-     */
-    public final Vector direction;
-
-    /** amount to move ray's head when calculating shadows */
-    private static final double DELTA = 0.1;
 }

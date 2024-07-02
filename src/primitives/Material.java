@@ -5,6 +5,22 @@ package primitives;
  */
 public class Material {
 
+    /** Diffusive coefficient */
+    public Double3 kD = Double3.ZERO;
+
+    /** Specular coefficient */
+    public Double3 kS = Double3.ZERO;
+
+    /** transparency coefficient */
+    public Double3 kT = Double3.ZERO;
+
+    /** reflection coefficient */
+    public Double3 kR = Double3.ZERO;
+
+    //hw page says init at 0, presentation says 1
+    /** represents how concentrated the shininess is*/
+    public int nShininess = 1;
+
     /**
      * Setter for kD using double type
      * @param kD new double value
@@ -94,20 +110,4 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
-
-    /** Diffusive coefficient */
-    public Double3 kD = Double3.ZERO;
-
-    /** Specular coefficient */
-    public Double3 kS = Double3.ZERO;
-
-    /** transparency coefficient */
-    public Double3 kT = Double3.ZERO;
-
-    /** reflection coefficient */
-    public Double3 kR = Double3.ZERO;
-
-    //hw page says init at 0, presentation says 1
-    /** represents how concentrated the shininess is*/
-    public int nShininess = 1;
 }

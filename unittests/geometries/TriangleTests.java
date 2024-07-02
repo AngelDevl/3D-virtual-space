@@ -62,12 +62,17 @@ public class TriangleTests {
         // ============ Equivalence Partitions Tests ==============
 
         //TC01 inside triangle
-        assertEquals(List.of(new Point(1d/3,1d/3,1d/3)), triangle.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))), "ERROR: bad intersect");
+        assertEquals(List.of(new Point(1d / 3,1d / 3,1d / 3)),
+                triangle.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))),
+                "ERROR: bad intersect");
+
         //TC02 in between triangle rays outside triangle
         Ray ray =new Ray(new Point(0, 0, 2), new Vector(-1, -1, 0));
         //first check if it is in Plane
-        assertEquals(List.of(new Point(-0.5, -0.5, 2)), plane.findIntersections(ray), "ERROR: wrong intersect with plane");
+        assertEquals(List.of(new Point(-0.5, -0.5, 2)), plane.findIntersections(ray),
+                "ERROR: wrong intersect with plane");
         assertNull(triangle.findIntersections(ray), "ERROR: intersect when shouldn't be");
+
         //TC03 on other side of edge outside triangle
         //first check if it is in Plane
         ray = new Ray(new Point(0, 0, -1), new Vector(1, 1, 0));
@@ -107,6 +112,7 @@ public class TriangleTests {
         Triangle triangle = new Triangle(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
 
         //TC01 out of bounds check
-        assertNull(triangle.findGeoIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1)), 0.1), "ERROR: bad intersect for max distance");
+        assertNull(triangle.findGeoIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1)), 0.1),
+                "ERROR: bad intersect for max distance");
     }
 }

@@ -3,6 +3,9 @@ import primitives.Color;
 
 import org.junit.jupiter.api.Test;
 
+import static java.awt.Color.*;
+import static java.awt.Color.yellow;
+
 public class ImageWriterTest {
 
     @Test
@@ -12,8 +15,8 @@ public class ImageWriterTest {
 
         int width = 800, height = 500;
         ImageWriter imageWriter = new ImageWriter("test", width, height);
-        Color yellow = new Color(java.awt.Color.YELLOW);
-        Color red = new Color(java.awt.Color.RED);
+        Color yellow = new Color(YELLOW);
+        Color red = new Color(RED);
 
 
         // One square is 50x50 pixels

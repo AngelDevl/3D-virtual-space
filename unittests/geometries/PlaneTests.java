@@ -37,7 +37,8 @@ public class PlaneTests {
         assertThrows(IllegalArgumentException.class, () -> new Plane(p1, p3, p3), errorMessage);
 
         //TC12 test case if all on the same line
-        assertThrows(IllegalArgumentException.class, () -> new Plane(p4, p2, p3), "ERROR: no error thrown for all points on the same line or wrong exception thrown");
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p4, p2, p3),
+                "ERROR: no error thrown for all points on the same line or wrong exception thrown");
     }
 
     /** Test method for {@link geometries.Plane#getNormal(Point)}*/
@@ -88,35 +89,43 @@ public class PlaneTests {
                 plane.findIntersections(new Ray(new Point(0.5, 0, 0), new Vector(1, 0, 0))),
                 "ERROR: Bad plane intersection");
         //TC02 Ray does not intersect plane
-        assertNull(plane.findIntersections(new Ray(new Point(0,5,0), new Vector(1,0,0))), "ERROR: intersection when there isn't meant to be");
+        assertNull(plane.findIntersections(new Ray(new Point(0,5,0), new Vector(1,0,0))),
+                "ERROR: intersection when there isn't meant to be");
 
 
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray is parallel to Plane
         //TC11 Ray intersects Plane
-        assertNull(plane.findIntersections(new Ray(new Point(0,0.5,0.5), new Vector(0,1,-1))), "ERROR: plane intersection when shouldn't be");
+        assertNull(plane.findIntersections(new Ray(new Point(0,0.5,0.5), new Vector(0,1,-1))),
+                "ERROR: plane intersection when shouldn't be");
 
         //TC12 Ray does not intersect Plane
-        assertNull(plane.findIntersections(new Ray(new Point(1,1,1), new Vector(0,1,-1))), "ERROR: plane intersection when shouldn't be");
+        assertNull(plane.findIntersections(new Ray(new Point(1,1,1), new Vector(0,1,-1))),
+                "ERROR: plane intersection when shouldn't be");
 
         // **** Group: Ray is orthogonal to Plane
         //TC13 Ray intersects Plane
         assertEquals(List.of(new Point(1d/3, 1d/3, 1d/3)),
-                plane.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))), "ERROR: plane intersection is incorrect");
+                plane.findIntersections(new Ray(new Point(1,1,1), new Vector(-1,-1,-1))),
+                "ERROR: plane intersection is incorrect");
 
         //TC14 Ray does not intersect Plane
-        assertNull(plane.findIntersections(new Ray(new Point(1,1,1), new Vector(1,1,1))), "ERROR: plane has intersect when shouldn't");
+        assertNull(plane.findIntersections(new Ray(new Point(1,1,1), new Vector(1,1,1))),
+                "ERROR: plane has intersect when shouldn't");
 
         //TC15 Ray starts in Plane
-        assertNull(plane.findIntersections(new Ray(new Point(1d/3,1d/3,1d/3), new Vector(-1,-1,-1))), "ERROR: plane has intersect when shouldn't");
+        assertNull(plane.findIntersections(new Ray(new Point(1d/3,1d/3,1d/3), new Vector(-1,-1,-1))),
+                "ERROR: plane has intersect when shouldn't");
 
         // **** Group: Special cases
         //TC16 Ray is neither orthogonal nor parallel but starts in Plane
-        assertNull(plane.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(0,1,0))), "ERROR: plane has intersect when shouldn't");
+        assertNull(plane.findIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(0,1,0))),
+                "ERROR: plane has intersect when shouldn't");
 
         //TC17 Ray is neither orthogonal nor parallel but starts from Plane's Q point
-        assertNull(plane.findIntersections(new Ray(new Point(0,0,1), new Vector(0,1,0))), "ERROR: plane has intersect when shouldn't");
+        assertNull(plane.findIntersections(new Ray(new Point(0,0,1), new Vector(0,1,0))),
+                "ERROR: plane has intersect when shouldn't");
     }
 
     /** tests findGeoIntersections for max distance */
@@ -125,6 +134,7 @@ public class PlaneTests {
         Plane plane = new Plane(new Point(0, 0, 1), new Vector(1, 1, 1));
 
         //TC intersect out of bounds
-        assertNull(plane.findGeoIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(0,1,-1)), 0.1), "ERROR: plane has intersect when out of bounds");
+        assertNull(plane.findGeoIntersections(new Ray(new Point(0, 0.5, 0.5), new Vector(0,1,-1)), 0.1),
+                "ERROR: plane has intersect when out of bounds");
     }
 }

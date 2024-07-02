@@ -9,6 +9,13 @@ import primitives.Vector;
  */
 public class SpotLight extends PointLight {
 
+    /** narrowBeam allows to narrow the light from the spotlight */
+    private double narrowBeam = 1;
+
+    /** direction on the spotlight */
+    private Vector direction;
+
+
     /**
      * Constructor to initialize SpotLight class members
      * @param intensity new intensity
@@ -21,7 +28,8 @@ public class SpotLight extends PointLight {
     }
 
 
-    @Override public Color getIntensity(Point p){
+    @Override
+    public Color getIntensity(Point p){
         double projection = direction.normalize().dotProduct(getL(p));
         double factor = Math.max(0, projection);
 
@@ -33,17 +41,20 @@ public class SpotLight extends PointLight {
         return super.getIntensity(p).scale(factor);
     }
 
-    @Override public SpotLight setKc(double kC) {
+    @Override
+    public SpotLight setKc(double kC) {
         super.setKc(kC);
         return this;
     }
 
-    @Override public SpotLight setKl(double kL) {
+    @Override
+    public SpotLight setKl(double kL) {
         super.setKl(kL);
         return this;
     }
 
-    @Override public SpotLight setKq(double kQ) {
+    @Override
+    public SpotLight setKq(double kQ) {
         super.setKq(kQ);
         return this;
     }
@@ -57,11 +68,4 @@ public class SpotLight extends PointLight {
         this.narrowBeam = narrowBeam;
         return this;
     }
-
-
-    /** narrowBeam allows to narrow the light from the spotlight */
-    private double narrowBeam = 1;
-
-    /** direction on the spotlight */
-    private Vector direction;
 }

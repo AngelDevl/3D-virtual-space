@@ -6,9 +6,41 @@
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Cylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Cylinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Geometries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Geometries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Intersectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Intersectable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Plane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Plane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Polygon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/RadialGeometry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/RadialGeometry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Sphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Sphere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Triangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Triangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometries/Tube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometries/Tube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/AmbientLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/AmbientLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/DirectionalLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/DirectionalLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/Light.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/Light.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/PointLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/PointLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/SpotLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/SpotLight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/primitives/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/primitives/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/primitives/Ray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Ray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/primitives/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/primitives/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/RayTracerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/RayTracerBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/SimpleRayTracer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/SimpleRayTracer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/GeometriesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/PlaneTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/PlaneTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/PolygonTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/PolygonTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/SphereTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/SphereTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/geometries/TriangleTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/geometries/TriangleTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/lighting/LightsTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/lighting/LightsTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/primitives/PointTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/PointTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/primitives/RayTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/RayTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/primitives/VectorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/primitives/VectorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/renderer/ImageWriterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/ImageWriterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/renderer/RenderTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/RenderTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/renderer/ShadowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/ShadowTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +96,7 @@
     "JUnit.CameraTest.executor": "Run",
     "JUnit.CylinderTests.executor": "Run",
     "JUnit.GeometriesTests.executor": "Run",
+    "JUnit.ImageWriterTest.ImageWriterTests.executor": "Run",
     "JUnit.IntegrationTests.TriangleTest.executor": "Run",
     "JUnit.IntegrationTests.executor": "Run",
     "JUnit.IntegrationTests.planeIntegrationTest.executor": "Run",
@@ -73,14 +106,22 @@
     "JUnit.PointTests.executor": "Run",
     "JUnit.PolygonTests (1).executor": "Run",
     "JUnit.PolygonTests.executor": "Run",
+    "JUnit.RayTests.deflectedRayConstructorTest.executor": "Run",
     "JUnit.RayTests.executor": "Run",
+    "JUnit.RayTests.normalizeConstructorTest.executor": "Run",
+    "JUnit.RayTests.normalizeRayConstructorTest.executor": "Run",
     "JUnit.RenderTests.basicRenderJson.executor": "Run",
+    "JUnit.RenderTests.renderMultiColorTest.executor": "Run",
     "JUnit.RenderTests.renderTwoColorTest.executor": "Run",
     "JUnit.ShadowTests.executor": "Run",
+    "JUnit.ShadowTests.stage7MultipleGeometries.executor": "Run",
+    "JUnit.ShadowTests.trianglesSphereWithCameraRotation.executor": "Run",
+    "JUnit.ShadowTests.trianglesSphereWithCameraTransformation.executor": "Run",
     "JUnit.SphereTests.executor": "Run",
     "JUnit.TriangleTests.executor": "Run",
     "JUnit.VectorTests.executor": "Run",
     "JUnit.geometries in ISE5784_7172_5564.executor": "Run",
+    "JUnit.renderer in ISE5784_7172_5564.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -124,7 +165,7 @@
       <recent name="primitives" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ISE5784_7172_5564">
+  <component name="RunManager" selected="JUnit.ShadowTests">
     <configuration name="All in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <option name="PACKAGE_NAME" value="" />
@@ -133,33 +174,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RenderTests.basicRenderJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RayTests.deflectedRayConstructorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="renderer.*" />
+          <option name="PATTERN" value="primitives.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="renderer" />
-      <option name="MAIN_CLASS_NAME" value="renderer.RenderTests" />
-      <option name="METHOD_NAME" value="basicRenderJson" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RenderTests.renderTwoColorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5784_7172_5564" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="renderer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="renderer" />
-      <option name="MAIN_CLASS_NAME" value="renderer.RenderTests" />
-      <option name="METHOD_NAME" value="renderTwoColorTest" />
+      <option name="PACKAGE_NAME" value="primitives" />
+      <option name="MAIN_CLASS_NAME" value="primitives.RayTests" />
+      <option name="METHOD_NAME" value="deflectedRayConstructorTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -180,15 +205,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="geometries in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowTests.stage7MultipleGeometries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geometries.*" />
+          <option name="PATTERN" value="renderer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="geometries" />
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.ShadowTests" />
+      <option name="METHOD_NAME" value="stage7MultipleGeometries" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="renderer in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5784_7172_5564" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -196,11 +237,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ISE5784_7172_5564" />
         <item itemvalue="JUnit.ShadowTests" />
-        <item itemvalue="JUnit.geometries in ISE5784_7172_5564" />
-        <item itemvalue="JUnit.RenderTests.basicRenderJson" />
-        <item itemvalue="JUnit.RenderTests.renderTwoColorTest" />
+        <item itemvalue="JUnit.ShadowTests.stage7MultipleGeometries" />
+        <item itemvalue="JUnit.renderer in ISE5784_7172_5564" />
+        <item itemvalue="JUnit.All in ISE5784_7172_5564" />
+        <item itemvalue="JUnit.RayTests.deflectedRayConstructorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -240,6 +281,9 @@
       <workItem from="1717067792354" duration="1254000" />
       <workItem from="1717346420453" duration="7415000" />
       <workItem from="1717878699929" duration="8297000" />
+      <workItem from="1717961022772" duration="16572000" />
+      <workItem from="1718559787030" duration="29146000" />
+      <workItem from="1719936861944" duration="5977000" />
     </task>
     <task id="LOCAL‎-00001" summary="PR01 Added comments &amp; all tests passed | DONE">
       <option name="closed" value="true" />

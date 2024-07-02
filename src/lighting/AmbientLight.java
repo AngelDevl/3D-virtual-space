@@ -8,6 +8,10 @@ import primitives.Double3;
  */
 public class AmbientLight extends Light {
 
+    /** Default AmbientLight - Black color */
+    public static AmbientLight NONE = new AmbientLight(Color.BLACK, 0d);
+
+
     /**
      * AmbientLight Constructor to initialize the intensity
      * @param ia Fill color
@@ -25,8 +29,4 @@ public class AmbientLight extends Light {
     public AmbientLight(Color ia, double ka) {
         super(ia.scale(ka));
     }
-
-
-    /** Default AmbientLight - Black color */
-    public static AmbientLight NONE = new AmbientLight(Color.BLACK, 0d);
 }

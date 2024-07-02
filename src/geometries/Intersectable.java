@@ -67,11 +67,13 @@ public abstract class Intersectable {
         }
 
 
-        @Override public String toString() {
+        @Override
+        public String toString() {
             return "Point: " + point.toString() + " Geometry: "  + geometry.toString();
         }
 
-        @Override public boolean equals(Object obj) {
+        @Override
+        public boolean equals(Object obj) {
             if (obj == null) return false;
 
             if (this == obj) return true;

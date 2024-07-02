@@ -13,6 +13,12 @@ import static primitives.Util.isZero;
 public class Tube extends RadialGeometry {
 
     /**
+     * the main axis that's tells the direction of the tube
+     */
+    protected final Ray axis;
+
+
+    /**
      * Tube Constructor to initialize a new Tube object with radius and axis
      * @param axis a Ray object that's represent the main axis
      * @param radius the radius of the tube
@@ -23,16 +29,19 @@ public class Tube extends RadialGeometry {
         this.axis = axis;
     }
 
-    @Override public List<Point> findIntersections(Ray ray) {
+    @Override
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
         return null;
     }
 
 
-    @Override public Vector getNormal(Point p) {
+    @Override
+    public Vector getNormal(Point p) {
         // dot product between the direction vector and the given point subtracted by the head point (start point)
         double t = axis.direction.dotProduct(p.subtract(axis.head));
 
@@ -43,10 +52,4 @@ public class Tube extends RadialGeometry {
         Point o = axis.head.add(axis.direction.scale(t));
         return (p.subtract(o)).normalize();
     }
-
-
-    /**
-     * the main axis that's tells the direction of the tube
-     */
-    protected final Ray axis;
 }

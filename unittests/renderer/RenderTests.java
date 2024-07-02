@@ -29,12 +29,25 @@ public class RenderTests {
    @Test
    public void renderTwoColorTest() {
       scene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
-                           new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
-                           // left
-                           new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
-                                        new Point(-100, -100, -100)), // down
-                           // left
-                           new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
+                           new Triangle(
+                                   new Point(-100, 0, -100),
+                                   new Point(0, 100, -100),
+                                   new Point(-100, 100, -100)
+                           ),
+
+                           new Triangle(
+                                   new Point(-100, 0, -100),
+                                   new Point(0, -100, -100),
+                                   new Point(-100, -100, -100)
+                           ),
+
+                           new Triangle(
+                                   new Point(100, 0, -100),
+                                   new Point(0, -100, -100),
+                                   new Point(100, -100, -100)
+                           )
+      );
+
       scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
          .setBackground(new Color(75, 127, 90));
 
@@ -76,15 +89,28 @@ public class RenderTests {
    public void renderMultiColorTest() {
       scene.geometries.add( // center
               new Sphere(new Point(0, 0, -100), 50),
+
               // up left
-              new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
-                      .setEmission(new Color(GREEN)),
+              new Triangle(
+                      new Point(-100, 0, -100),
+                      new Point(0, 100, -100),
+                      new Point(-100, 100, -100)
+              ).setEmission(new Color(GREEN)),
+
               // down left
-              new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
-                      .setEmission(new Color(RED)),
+              new Triangle(
+                      new Point(-100, 0, -100),
+                      new Point(0, -100, -100),
+                      new Point(-100, -100, -100)
+              ).setEmission(new Color(RED)),
+
               // down right
-              new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
-                      .setEmission(new Color(BLUE)));
+              new Triangle(
+                      new Point(100, 0, -100),
+                      new Point(0, -100, -100),
+                      new Point(100, -100, -100)
+              ).setEmission(new Color(BLUE)));
+
       scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2, 0.2, 0.2))); //
 
       camera

@@ -11,7 +11,38 @@ import java.util.List;
 /** Unit tests for Ray */
 class RayTests {
 
-     /** Test method for {@link Ray#getPoint(double)}} */
+    /** Test method for {@link Ray#Ray(Point head, Vector direction)}} */
+
+    @Test
+    public void normalizeRayConstructorTest() {
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01 normalize positive vector
+
+        assertEquals(
+                new Vector(2, 4, 3).normalize(),
+                new Ray(Point.ZERO, new Vector(2, 4, 3)).direction,
+                "Ray constructor - normalized test failed with positive vector"
+        );
+
+        // TC02 normalize negative vector
+        assertEquals(
+                new Vector(-4, -3, 0).normalize(),
+                new Ray(Point.ZERO, new Vector(-4, -3, 0)).direction,
+                "Ray constructor - normalized test failed with negative vector");
+
+
+        // =============== Boundary Values Tests ==================
+
+        // TC10 normalize unit vector
+        assertEquals(new Vector(1, 0, 0), new Ray(Point.ZERO, new Vector(1, 0, 0)).direction,
+                "Ray constructor - normalized test failed with unit vector");
+    }
+
+
+
+    /** Test method for {@link Ray#getPoint(double)}} */
 
     @Test
     public void testGetPoint() {

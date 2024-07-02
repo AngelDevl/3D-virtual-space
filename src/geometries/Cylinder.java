@@ -12,6 +12,12 @@ import static primitives.Util.alignZero;
 public class Cylinder extends Tube {
 
     /**
+     * The height of the cylinder
+     */
+    private final double height;
+
+
+    /**
      * Cylinder Constructor to initialize a new Cylinder object with axis, height and radius
      * @param axis the main axis that's tells the direction of the tube
      * @param radius the radius of the cylinder
@@ -23,7 +29,8 @@ public class Cylinder extends Tube {
     }
 
 
-    @Override public Vector getNormal(Point p) {
+    @Override
+    public Vector getNormal(Point p) {
         Point head = axis.head;
         Vector direction = axis.direction;
         double t = 0;
@@ -43,9 +50,4 @@ public class Cylinder extends Tube {
 
         return p.subtract(axis.head.add(direction.scale(t))).normalize();
     }
-
-    /**
-     * The height of the cylinder
-     */
-    private final double height;
 }

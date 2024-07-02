@@ -6,6 +6,16 @@ package primitives;
 public class Point {
 
     /**
+     * A Point object that represent a point with all zero coordinates
+     */
+    public static final Point ZERO = new Point(0, 0, 0);
+
+    /**
+     * A Double3 object that represent our point has 3 doubles with x, y, z coordinates
+     */
+    protected final Double3 xyz;
+
+    /**
      * Point constructor to initialize a new Point object using 3 doubles
      * @param x double that represent the x value in a point
      * @param y double that represent the y value in a point
@@ -65,9 +75,11 @@ public class Point {
         return dx * dx + dy * dy + dz * dz;
     }
 
-    @Override public String toString() { return " " + xyz; }
+    @Override
+    public String toString() { return " " + xyz; }
 
-    @Override public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
 
         if (obj == null) return false;
@@ -75,19 +87,19 @@ public class Point {
         return (obj instanceof Point other) && xyz.equals(other.xyz);
     }
 
-    @Override public int hashCode() { return xyz.hashCode(); }
+    @Override
+    public int hashCode() { return xyz.hashCode(); }
 
-    /**
-     * A Point object that represent a point with all zero coordinates
-     */
-    public static final Point ZERO = new Point(0, 0, 0);
-
-    /**
-     * A Double3 object that represent our point has 3 doubles with x, y, z coordinates
-     */
-    protected final Double3 xyz;
 
     public double getX() {
         return xyz.d1;
+    }
+
+    public double getY() {
+        return xyz.d2;
+    }
+
+    public double getZ() {
+        return xyz.d3;
     }
 }

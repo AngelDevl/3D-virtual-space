@@ -6,6 +6,13 @@ package primitives;
 public class Vector extends Point {
 
     /**
+     * For camera rotation bonus - (for rotation by given vector that represent the axis)
+     */
+    public static final Vector x = new Vector(1, 0, 0);
+    public static final Vector y = new Vector(0, 1, 0);
+    public static final Vector z = new Vector(0, 0, 1);
+
+    /**
      * Constructor to initialize a new Vector with 3 doubles
      * Throws an IllegalArgumentException if vector zero is passed
      * @param x double type that becomes the x coordinate
@@ -22,12 +29,12 @@ public class Vector extends Point {
     /**
      * Constructor to initialize a new Vector using Double3 object that represents 3 coordinates
      * Throws an IllegalArgumentException if vector zero is passed
-     * @param coordinates Double3 type object that represent 3 coordinates
+     * @param xyz Double3 type object that represent 3 coordinates
      */
-    public Vector(Double3 coordinates) {
-        super(coordinates);
+    public Vector(Double3 xyz) {
+        super(xyz);
 
-        if (coordinates.equals(Double3.ZERO)) throw new IllegalArgumentException("Cannot accept a zero vector");
+        if (xyz.equals(Double3.ZERO)) throw new IllegalArgumentException("Cannot accept a zero vector");
     }
 
     /**
@@ -95,9 +102,46 @@ public class Vector extends Point {
         return new Vector(xyz.d1 / vectorLength, xyz.d2 / vectorLength, xyz.d3 / vectorLength);
     }
 
-    @Override public String toString() { return " " + super.toString(); }
 
-    @Override public boolean equals(Object obj) {
+    /**
+     * The function construct new vector after rotation calculating
+     * with consideration of axis vector and rotation angle.
+     * using this formula: <a href="https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">...</a>
+     * @param axis     of rotation
+     * @param thetaRad of rotation in radians
+     * @return new rotated vector
+     */
+    public Vector vectorRotate(Vector axis, double thetaRad) {
+        double x = xyz.d1;
+        double y = xyz.d2;
+        double z = xyz.d3;
+
+        double u = axis.xyz.d1;
+        double v = axis.xyz.d2;
+        double w = axis.xyz.d3;
+
+        double v1 = u * x + v * y + w * z;
+
+        double xPrime = u * v1 * (1d - Math.cos(thetaRad))
+                + x * Math.cos(thetaRad)
+                + (-w * y + v * z) * Math.sin(thetaRad);
+
+        double yPrime = v * v1 * (1d - Math.cos(thetaRad))
+                + y * Math.cos(thetaRad)
+                + (w * x - u * z) * Math.sin(thetaRad);
+
+        double zPrime = w * v1 * (1d - Math.cos(thetaRad))
+                + z * Math.cos(thetaRad)
+                + (-v * x + u * y) * Math.sin(thetaRad);
+
+        return new Vector(xPrime, yPrime, zPrime);
+    }
+
+    @Override
+    public String toString() { return " " + super.toString(); }
+
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
 
         if (obj == null) return false;
@@ -105,5 +149,6 @@ public class Vector extends Point {
         return (obj instanceof Vector other) && super.equals(other);
     }
 
-    @Override public int hashCode() { return super.hashCode(); }
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

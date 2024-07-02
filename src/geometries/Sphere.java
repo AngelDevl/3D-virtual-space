@@ -13,6 +13,12 @@ import static primitives.Util.alignZero;
 public class Sphere extends RadialGeometry {
 
     /**
+     * the center of the sphere
+     */
+    private final Point center;
+
+
+    /**
      * Sphere Constructor that initialize a new Sphere object with a center point and a radius
      * @param center the center of the sphere
      * @param radius the radius of the sphere
@@ -23,7 +29,8 @@ public class Sphere extends RadialGeometry {
     }
 
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point rayHead = ray.head;
         Vector direction = ray.direction;
 
@@ -70,13 +77,9 @@ public class Sphere extends RadialGeometry {
     }
 
 
-    @Override public Vector getNormal(Point outerPoint) {
+    @Override
+    public Vector getNormal(Point outerPoint) {
         // To calculate the normal we need to subtract the outer point by the center point and then normalize
         return (outerPoint.subtract(center)).normalize();
     }
-
-    /**
-     * the center of the sphere
-     */
-    private final Point center;
 }

@@ -23,7 +23,8 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         // First we will check if there are any intersection with the plane
         List<GeoPoint> planeIntersections = plane.findGeoIntersections(ray, maxDistance);
 

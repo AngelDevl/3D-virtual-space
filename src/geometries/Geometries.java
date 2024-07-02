@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class Geometries extends Intersectable {
 
+    private final List<Intersectable> geometries = new LinkedList<>();
+
+
     /**
      * Geometries Constructor to initialize the geoObjects - using add to add all the Intersectable objects
      * @param geometries all the geometries objects that implements Intersectable interface
@@ -18,7 +21,10 @@ public class Geometries extends Intersectable {
         add(geometries);
     }
 
-    // Default constructor for Geometries
+    /**
+     * Default constructor for Geometries
+     * Initialize geometries list to a new empty list
+     */
     public Geometries() {
 
     }
@@ -28,15 +34,15 @@ public class Geometries extends Intersectable {
      * @param geometries all the geometries objects that implements Intersectable interface
      */
     public void add(Intersectable... geometries) {
-        if (geometries.length != 0)
-            geoObjects.addAll(List.of(geometries));
+            this.geometries.addAll(List.of(geometries));
     }
 
 
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> intersections = null;
-        for (Intersectable object : geoObjects) {
-            List<GeoPoint> currentIntersections = object.findGeoIntersections(ray, maxDistance);
+        for (Intersectable geometry : geometries) {
+            List<GeoPoint> currentIntersections = geometry.findGeoIntersections(ray, maxDistance);
             if (currentIntersections == null) {
                 continue;
             }
@@ -51,7 +57,4 @@ public class Geometries extends Intersectable {
 
         return intersections;
     }
-
-
-    private final List<Intersectable> geoObjects = new LinkedList<>();
 }

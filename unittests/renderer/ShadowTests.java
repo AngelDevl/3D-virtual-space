@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -9,6 +10,8 @@ import lighting.AmbientLight;
 import lighting.SpotLight;
 import primitives.*;
 import scene.Scene;
+
+import java.util.List;
 
 /** Testing basic shadows
  * @author Dan */
@@ -48,7 +51,11 @@ public class ShadowTests {
    @Test
    public void sphereTriangleInitial() {
       sphereTriangleHelper("shadowSphereTriangleInitial", //
-                           new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+                           new Triangle(
+                                   new Point(-70, -40, 0),
+                                   new Point(-40, -70, 0),
+                                   new Point(-68, -68, -4)),
+
                            new Point(-100, -100, 200));
    }
 
@@ -56,7 +63,11 @@ public class ShadowTests {
    @Test
    public void sphereTriangleMove1() {
       sphereTriangleHelper("shadowSphereTriangleMove2", //
-                           new Triangle(new Point(-60, -30, 0), new Point(-30, -60, 0), new Point(-58, -58, -4)), //
+                           new Triangle(
+                                   new Point(-60, -30, 0),
+                                   new Point(-30, -60, 0),
+                                   new Point(-58, -58, -4)),
+
                            new Point(-100, -100, 200));
    }
 
@@ -64,7 +75,11 @@ public class ShadowTests {
    @Test
    public void sphereTriangleMove2() {
       sphereTriangleHelper("shadowSphereTriangleMove1", //
-                           new Triangle(new Point(-50, -20, 0), new Point(-20, -50, 0), new Point(-48, -48, -4)), //
+                           new Triangle(
+                                   new Point(-50, -20, 0),
+                                   new Point(-20, -50, 0),
+                                   new Point(-48, -48, -4)),
+
                            new Point(-100, -100, 200));
    }
 
@@ -72,7 +87,11 @@ public class ShadowTests {
    @Test
    public void sphereTriangleSpot1() {
       sphereTriangleHelper("shadowSphereTriangleSpot1", //
-                           new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+                           new Triangle(
+                                   new Point(-70, -40, 0),
+                                   new Point(-40, -70, 0),
+                                   new Point(-68, -68, -4)),
+
                            new Point(-90, -90, 150));
    }
 
@@ -80,7 +99,11 @@ public class ShadowTests {
    @Test
    public void sphereTriangleSpot2() {
       sphereTriangleHelper("shadowSphereTriangleSpot2", //
-                           new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+                           new Triangle(
+                                   new Point(-70, -40, 0),
+                                   new Point(-40, -70, 0),
+                                   new Point(-68, -68, -4)),
+
                            new Point(-80, -80, 100));
    }
 
@@ -89,18 +112,26 @@ public class ShadowTests {
    @Test
    public void trianglesSphere() {
       scene.geometries.add(
-                           new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
-                                        new Point(75, 75, -150)) //
-                              .setMaterial(new Material().setKs(0.8).setShininess(60)), //
-                           new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-                              .setMaterial(new Material().setKs(0.8).setShininess(60)), //
+                           new Triangle(
+                                   new Point(-150, -150, -115),
+                                   new Point(150, -150, -135),
+                                   new Point(75, 75, -150))
+                              .setMaterial(new Material().setKs(0.8).setShininess(60)),
+
+                           new Triangle(
+                                   new Point(-150, -150, -115),
+                                   new Point(-70, 70, -140),
+                                   new Point(75, 75, -150))
+                              .setMaterial(new Material().setKs(0.8).setShininess(60)),
+
                            new Sphere(new Point(0, 0, -11), 30d) //
                               .setEmission(new Color(BLUE)) //
-                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
+                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30))
       );
       scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
       scene.lights.add(
-                       new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
+                       new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115),
+                               new Vector(-1, -1, -4))
                           .setKl(4E-4).setKq(2E-5));
 
       camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600))
@@ -108,5 +139,112 @@ public class ShadowTests {
          .renderImage();
 
          camera.build().writeToImage();
+   }
+
+   //-----------------------------------------------------------------------------------------------------------
+   /**
+    * Helper function for the camera rotation and transformation bonus - and for the final image at stage 7
+    */
+   public void multipleGeometriesHelper() {
+      scene.geometries.add(
+              new Triangle(
+                      new Point(-145, -150, -115),
+                      new Point(155, -150, -135),
+                      new Point(80, 75, -150))
+                      .setMaterial(new Material().setKs(0.8).setShininess(60)),
+
+              new Triangle(
+                      new Point(-150, -150, -115),
+                      new Point(-70, 70, -140),
+                      new Point(75, 75, -150))
+                      .setMaterial(new Material().setKr(0.6).setKs(0.8).setShininess(60)),
+
+              new Sphere(new Point(-40, 0, -11), 20d)
+                      .setEmission(new Color(GREEN))
+                      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
+
+              new Sphere(new Point(0, 1, -11), 20d)
+                      .setEmission(new Color(YELLOW)) //
+                      .setMaterial(new Material().setKd(0.2).setKs(0.6).setKt(0.6).setShininess(30)),
+
+              new Sphere(new Point(40, 2, -11), 20d) //
+                      .setEmission(new Color(RED)) //
+                      .setMaterial(new Material().setKd(0.4).setKs(0.3).setKt(0.9).setShininess(20))
+      );
+
+
+      scene.setAmbientLight(new AmbientLight(new Color(RED), 0.15));
+
+      SpotLight spotLight = new SpotLight(new Color(700, 400, 400), new Point(0, 30, 115), new Vector(-1, -1, -4))
+              .setKl(4E-4).setKq(2E-5);
+
+      PointLight pointLight = new PointLight(new Color(700, 400, 400), new Point(80, -10, -5))
+              .setKl(0.001).setKq(0.0002);
+
+      // Add the lights to the scene in one statement
+      scene.lights.addAll(List.of(spotLight, pointLight));
+   }
+
+   // Test for final stage 7 - 3 Spheres and 2 triangle the triangles would be behind the spheres
+   // Including point light and spotlight
+   @Test
+   public void stage7MultipleGeometries() {
+
+      // Helper for adding geometries and lighting
+      multipleGeometriesHelper();
+
+      camera.setImageWriter(new ImageWriter("stage7MultipleGeometriesFinal", 600, 600))
+              .build()
+              .renderImage();
+
+      camera.build().writeToImage();
+   }
+
+   /** Produce a picture of a two triangles lighted by a spotlight with 3 Spheres
+    * And rotate the camera by 45 degrees
+    * producing a shading */
+   @Test
+   public void trianglesSphereWithCameraRotation() {
+
+      // Helper for adding geometries and lighting
+      multipleGeometriesHelper();
+
+      // Rotate the camera around the Y-axis by 45 degrees
+      camera.rotateCamera(45);
+
+      // Build and render the image
+      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere-Rotation", 600, 600))
+              .build()
+              .printGrid(50, new Color(RED));
+
+              camera.build().renderImage();
+
+      // Write the image to file
+      camera.build().writeToImage();
+   }
+
+   /** Produce a picture of a two triangles lighted by a spotlight with 3 Spheres
+    *  Change the position of the camera and rotate the camera by 45 degrees
+    * producing a shading */
+   @Test
+   public void trianglesSphereWithCameraTransformation() {
+
+      // Helper for adding geometries and lighting
+      multipleGeometriesHelper();
+
+      // Rotate the camera around the Y-axis by 45 degrees and change the camera position (z axis)
+      // To make the camera closer to the scene
+      camera.transform(new Point(0, 0, 800), new Point(0, 0, 0), 45);
+
+
+      // Build and render the image
+      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere-Transformation", 600, 600))
+              .build()
+              .printGrid(50, new Color(RED));
+
+      camera.build().renderImage();
+
+      // Write the image to file
+      camera.build().writeToImage();
    }
 }

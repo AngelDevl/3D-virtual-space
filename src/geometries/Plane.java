@@ -14,6 +14,17 @@ import static primitives.Util.isZero;
 public class Plane extends Geometry {
 
     /**
+     * The normal vector
+     */
+    private final Vector normal;
+
+    /**
+     * a point that lies on the plane
+     */
+    private final Point q;
+
+
+    /**
      * Plane Constructor that initialize a new Plane object and calculates the normal using two points,
      * and saving one point that lies on the plane. The constructor normalize the new normal vector after calculation
      * @param p point that lies on the plane
@@ -44,7 +55,8 @@ public class Plane extends Geometry {
     //  --------------------------------------------  =  intersection
     //      normal dot product direction vector
     // According to the formula:
-    @Override public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         // Ray cannot start from a plane
         if (ray.head.equals(q)) return null;
@@ -76,7 +88,8 @@ public class Plane extends Geometry {
     }
 
 
-    @Override public Vector getNormal(Point p) {
+    @Override
+    public Vector getNormal(Point p) {
         return normal;
     }
 
@@ -87,14 +100,4 @@ public class Plane extends Geometry {
     public Vector getNormal() {
         return normal;
     }
-
-    /**
-     * The normal vector
-     */
-    private final Vector normal;
-
-    /**
-     * a point that lies on the plane
-     */
-    private final Point q;
 }

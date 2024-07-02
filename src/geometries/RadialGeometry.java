@@ -7,15 +7,16 @@ package geometries;
 abstract public class RadialGeometry extends Geometry {
 
     /**
+     * The radius that represent the radius for some classes
+     */
+    protected final double radius;
+
+
+    /**
      * RadialGeometry Constructor to initialize a radius
      * @param radius value to initialize radius with
      */
     RadialGeometry(double radius) {
         this.radius = radius;
     }
-
-    /**
-     * The radius that represent the radius for some classes
-     */
-    protected final double radius;
 }
