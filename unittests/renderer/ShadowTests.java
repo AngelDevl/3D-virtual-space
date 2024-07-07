@@ -192,7 +192,7 @@ public class ShadowTests {
 
       // Helper for adding geometries and lighting
       multipleGeometriesHelper();
-
+//      camera.setDensity(17);
       camera.setImageWriter(new ImageWriter("stage7MultipleGeometriesFinal", 600, 600))
               .build()
               .renderImage();

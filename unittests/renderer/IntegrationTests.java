@@ -31,7 +31,7 @@ public class IntegrationTests {
      */
     private int countIntersections(Camera.Builder builder, Intersectable geometry, int nX, int nY){
         // build the camera with a view plane of 3x3 and distance of 1
-        Camera cam = builder.setVpSize(3,3)
+        Camera camera = builder.setVpSize(3,3)
                 .setVpDistance(1)
                 .setImageWriter(new ImageWriter("test construct Ray", 500, 800))
                 .setRayTracer(new SimpleRayTracer(new Scene("name")))
@@ -44,7 +44,7 @@ public class IntegrationTests {
         //loop through all pixels
         for (int i = 0; i < nY; i++){
             for (int j = 0; j < nX; j++){
-                intersections = geometry.findIntersections(cam.constructRay(nX, nY, j, i));
+                intersections = geometry.findIntersections(camera.constructRay(nX, nY, j, i).getFirst());
                 if(intersections != null) { counter += intersections.size(); }
 
             }

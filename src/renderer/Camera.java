@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.alignZero;
@@ -31,6 +33,12 @@ public class Camera implements Cloneable {
     private double distance = 0;
     /** width of view plane*/
     private double width = 0;
+
+    /** density of rays, represented by square root of actual density */
+    private int density = 1;
+
+    /** blackboard to use for each pixel*/
+    private Blackboard blackboard;
 
     /** Plane center point */
     private Point viewPlaneCenter;
@@ -64,24 +72,78 @@ public class Camera implements Cloneable {
      * @param i pixel index - row (y)
      * @return A ray pointing to the middle of the pixel from the camera
      */
-    public Ray constructRay(int nX, int nY, int j, int i) {
+//    public Ray constructRay(int nX, int nY, int j, int i) {
+//
+//        double Rx = width / nX; // The width of a single pixel
+//        double Ry = height / nY; // The height of a single pixel
+//
+//        double xj = (j - (nX - 1) / 2d) * Rx;
+//        double yi = - (i - (nY - 1) / 2d) * Ry;
+//        Point pij = viewPlaneCenter;
+//
+//        if(!isZero(xj))
+//            pij = pij.add(vecRight.scale(xj));
+//
+//        if(!isZero(yi))
+//            pij = pij.add(vecUp.scale(yi));
+//
+//        return new Ray (location, pij.subtract(location));
+//    }
 
-        double Rx = width / nX; // The width of a single pixel
-        double Ry = height / nY; // The height of a single pixel
+    /**
+     * constructs a ray through a pixel
+     * @param nX row length
+     * @param nY column height
+     * @param j pixel index - column
+     * @param i pixel index - row
+     * @return null
+     */
+    public List<Ray> constructRay(int nX, int nY, int j, int i){
+        List<Ray> rays = new LinkedList<>();
 
-        double xj = (j - (nX - 1) / 2d) * Rx;
-        double yi = - (i - (nY - 1) / 2d) * Ry;
-        Point pij = viewPlaneCenter;
+        //Ratio width and height
+        double Ry = height / nY;
+        double Rx = width / nX;
 
-        if(!isZero(xj))
-            pij = pij.add(vecRight.scale(xj));
+        //Pixel[i,j] center
+        double yI = -(i - (nY - 1) / 2.0) * Ry;
+        double xJ = (j - (nX - 1) / 2.0) * Rx;
+        Point Pij = viewPlaneCenter;
+        //make sure to account for Vector ZERO
+        if (!isZero(xJ)) { Pij = Pij.add(vecRight.scale(xJ)); }
+        if (!isZero(yI)) { Pij = Pij.add(vecUp.scale(yI)); }
 
-        if(!isZero(yi))
-            pij = pij.add(vecUp.scale(yi));
+        if (blackboard.getDensity() != 1) {
+            //set center point to center of pixel and set width and height
+            blackboard = blackboard.setCenterPoint(Pij).setWidth(Rx).setHeight(Ry);
+            // generate list of points on grid
+            List<Point> points = blackboard.generateJitterGrid();
+            for (Point point : points){
+                //rays to point on grid
+                rays.add(new Ray(location, point.subtract(location)));
+            }
+        }
+        else {
+            Vector Vij = Pij.subtract(location);
+            rays.add(new Ray(location, Vij));
+        }
 
-        return new Ray (location, pij.subtract(location));
+        return rays;
     }
 
+    /**
+     * calculates the average color of a list of points
+     * @param rays list of rays to calculate color for
+     * @return averaged color
+     */
+    private Color calcAvgColor(List<Ray> rays){
+        Color color = Color.BLACK;
+        for (Ray ray : rays) {
+            color = color.add(rayTracer.traceRay(ray));
+        }
+
+        return color.reduce(rays.size());
+    }
     /**
      * Looping over all the pixels and using castRay function on every pixel to create a ray to the pixel to find the color
      * and write the color to the pixel
@@ -106,8 +168,8 @@ public class Camera implements Cloneable {
      * @param j column of the pixel
      */
     private void castRay(int Nx, int Ny, int i, int j) {
-        Ray ray = constructRay(Nx, Ny, i, j);
-        imageWriter.writePixel(i, j, rayTracer.traceRay(ray));
+        List<Ray> rays = constructRay(Nx, Ny, i, j);
+        imageWriter.writePixel(i, j, calcAvgColor(rays));
     }
 
 
@@ -260,6 +322,16 @@ public class Camera implements Cloneable {
         }
 
         /**
+         * sets density of anti aliasing
+         * @param density density represented in square root (if var is 2 then we will have 4 beams)
+         * @return this
+         */
+        public Builder setDensity(int density){
+            camera.density = density;
+            return this;
+        }
+
+        /**
          * Sets the ImageWriter for the camera
          * @param imageWriter ImageWriter object
          * @return the updated this object
@@ -298,9 +370,11 @@ public class Camera implements Cloneable {
             camera.vecRight = (camera.vecTo.crossProduct(camera.vecUp)).normalize();
             camera.viewPlaneCenter = camera.location.add(camera.vecTo.scale(camera.distance));
 
+            camera.blackboard = new Blackboard(camera.vecUp, camera.vecRight, camera.density);
+
             return (Camera) camera.clone();
         }
 
-        final private Camera camera = new Camera();
+        private final Camera camera = new Camera();
     }
 }
