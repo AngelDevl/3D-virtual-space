@@ -57,7 +57,7 @@ public class Blackboard {
      */
     public Blackboard setWidth(double width){
         this.width = width;
-        this.dX = this.width/density;
+        this.dX = this.width / density;
         return this;
     }
 
@@ -68,7 +68,7 @@ public class Blackboard {
      */
     public Blackboard setHeight(double height){
         this.height = height;
-        this.dY = this.height/density;
+        this.dY = this.height / density;
         return this;
     }
 
@@ -91,27 +91,29 @@ public class Blackboard {
     }
 
     /**
-     * generate a grid densityXdensity with random jitter
+     * generate a grid density X density with random jitter
      * @return list of points on the grid
      */
     public List<Point> generateJitterGrid(){
         List<Point> points = new LinkedList<>();
         //bring our point up to the corner
-        Point topleft = p0.add(vecRight.scale(-0.5*width)).add(vecUp.scale(0.5*height));
-        Point p;
-        for(int j = 0; j <= density; j++){
+        Point p, topleft = p0.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
+        for (int j = 0; j <= density; j++){
             p = topleft;
             //deal with vector zero
-            if(!isZero(j)) {
-                p = p.add(vecRight.scale(dX*j));
+            if (!isZero(j)) {
+                p = p.add(vecRight.scale(dX * j));
             }
-            for(int i = 0; i <= density; i++){
+
+            for (int i = 0; i <= density; i++){
                 if(!isZero(i)) {
-                    p = p.add(vecUp.scale((-dY)+random(-0.1*dX, 0.1*dX)).add(vecRight.scale(random(-0.1*dY, 0.1*dY))));
+                    p = p.add(vecUp.scale((-dY) + random(-0.1 * dX, 0.1 * dX)).add(vecRight.scale(random(-0.1 * dY, 0.1 * dY))));
                 }
+
                 points.add(p);
             }
         }
+
         return points;
     }
 
@@ -122,21 +124,23 @@ public class Blackboard {
     public List<Point> generateGrid(){
         List<Point> points = new LinkedList<>();
         //bring our point up to the corner
-        Point topleft = p0.add(vecRight.scale(-0.5*width)).add(vecUp.scale(0.5*height));
-        Point p;
-        for(int j = 0; j <= density; j++){
+        Point p, topleft = p0.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
+        for (int j = 0; j <= density; j++){
             p = topleft;
             //deal with vector zero
             if(!isZero(j)) {
-                p = p.add(vecRight.scale(dX*j));
+                p = p.add(vecRight.scale(dX * j));
             }
-            for(int i = 0; i <= density; i++){
+
+            for (int i = 0; i <= density; i++){
                 if(!isZero(i)) {
                     p = p.add(vecUp.scale((-dY)));
                 }
+
                 points.add(p);
             }
         }
+
         return points;
     }
 }

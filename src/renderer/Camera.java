@@ -8,6 +8,7 @@ import primitives.Vector;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.Random;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -27,17 +28,17 @@ public class Camera implements Cloneable {
      */
     private Vector vecUp, vecRight, vecTo;
 
-    /** height of view plane*/
+    /** height of view plane */
     private double height = 0;
-    /** distance of camera from view plane*/
+    /** distance of camera from view plane */
     private double distance = 0;
-    /** width of view plane*/
+    /** width of view plane */
     private double width = 0;
 
     /** density of rays, represented by square root of actual density */
     private int density = 1;
 
-    /** blackboard to use for each pixel*/
+    /** blackboard to use for each pixel */
     private Blackboard blackboard;
 
     /** Plane center point */
@@ -47,7 +48,7 @@ public class Camera implements Cloneable {
     ImageWriter imageWriter;
 
     // RayTracerBase object
-    RayTracerBase rayTracer;
+    public RayTracerBase rayTracer;
 
 
     private Camera() {
@@ -72,54 +73,55 @@ public class Camera implements Cloneable {
      * @param i pixel index - row (y)
      * @return A ray pointing to the middle of the pixel from the camera
      */
-//    public Ray constructRay(int nX, int nY, int j, int i) {
-//
-//        double Rx = width / nX; // The width of a single pixel
-//        double Ry = height / nY; // The height of a single pixel
-//
-//        double xj = (j - (nX - 1) / 2d) * Rx;
-//        double yi = - (i - (nY - 1) / 2d) * Ry;
-//        Point pij = viewPlaneCenter;
-//
-//        if(!isZero(xj))
-//            pij = pij.add(vecRight.scale(xj));
-//
-//        if(!isZero(yi))
-//            pij = pij.add(vecUp.scale(yi));
-//
-//        return new Ray (location, pij.subtract(location));
-//    }
+    public Ray constructRay(int nX, int nY, int j, int i) {
+
+        double Rx = width / nX; // The width of a single pixel
+        double Ry = height / nY; // The height of a single pixel
+
+        double xj = (j - (nX - 1) / 2d) * Rx;
+        double yi = - (i - (nY - 1) / 2d) * Ry;
+        Point pij = viewPlaneCenter;
+
+        if(!isZero(xj))
+            pij = pij.add(vecRight.scale(xj));
+
+        if(!isZero(yi))
+            pij = pij.add(vecUp.scale(yi));
+
+        return new Ray(location, pij.subtract(location));
+    }
 
     /**
-     * constructs a ray through a pixel
+     * constructs a ray/rays through a pixel using blackboard generateJitterGrid function
+     * to generate multiple points in a grid by moving them with a random factor
      * @param nX row length
      * @param nY column height
      * @param j pixel index - column
      * @param i pixel index - row
-     * @return null
+     * @return list of rays
      */
-    public List<Ray> constructRay(int nX, int nY, int j, int i){
+    public List<Ray> constructRays(int nX, int nY, int j, int i){
         List<Ray> rays = new LinkedList<>();
 
         //Ratio width and height
         double Ry = height / nY;
         double Rx = width / nX;
 
-        //Pixel[i,j] center
+        // Pixel[i,j] center
         double yI = -(i - (nY - 1) / 2.0) * Ry;
         double xJ = (j - (nX - 1) / 2.0) * Rx;
         Point Pij = viewPlaneCenter;
-        //make sure to account for Vector ZERO
+        // make sure to account for Vector ZERO
         if (!isZero(xJ)) { Pij = Pij.add(vecRight.scale(xJ)); }
         if (!isZero(yI)) { Pij = Pij.add(vecUp.scale(yI)); }
 
         if (blackboard.getDensity() != 1) {
-            //set center point to center of pixel and set width and height
+            // set center point to center of pixel and set width and height
             blackboard = blackboard.setCenterPoint(Pij).setWidth(Rx).setHeight(Ry);
             // generate list of points on grid
             List<Point> points = blackboard.generateJitterGrid();
             for (Point point : points){
-                //rays to point on grid
+                // rays to point on grid
                 rays.add(new Ray(location, point.subtract(location)));
             }
         }
@@ -130,6 +132,7 @@ public class Camera implements Cloneable {
 
         return rays;
     }
+
 
     /**
      * calculates the average color of a list of points
@@ -168,7 +171,7 @@ public class Camera implements Cloneable {
      * @param j column of the pixel
      */
     private void castRay(int Nx, int Ny, int i, int j) {
-        List<Ray> rays = constructRay(Nx, Ny, i, j);
+        List<Ray> rays = constructRays(Nx, Ny, i, j);
         imageWriter.writePixel(i, j, calcAvgColor(rays));
     }
 
@@ -332,6 +335,16 @@ public class Camera implements Cloneable {
         }
 
         /**
+         * Sets whether to use soft shadows or not
+         * @param useSoftShadows boolean value for useSoftShadows
+         * @return the updated this object
+         */
+        public Builder setSoftShadows(boolean useSoftShadows) {
+            ((SimpleRayTracer) camera.rayTracer).setUseSoftShadows(useSoftShadows);
+            return this;
+        }
+
+        /**
          * Sets the ImageWriter for the camera
          * @param imageWriter ImageWriter object
          * @return the updated this object
@@ -350,7 +363,6 @@ public class Camera implements Cloneable {
             camera.rayTracer = rayTracer;
             return this;
         }
-
 
         /**
          * build function initializing camera properties and making sure all the needed properties are initialized

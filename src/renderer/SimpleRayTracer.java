@@ -1,6 +1,8 @@
 package renderer;
 
 import lighting.LightSource;
+import lighting.PointLight;
+import lighting.SpotLight;
 import primitives.*;
 
 import java.util.List;
@@ -25,6 +27,9 @@ public class SimpleRayTracer extends RayTracerBase {
     /** initial recursion k */
     private static final Double3 INITIAL_K = Double3.ONE;
 
+    /** soft-shadows switch (true - use soft-shadows else don't use soft-shadows)*/
+    private boolean useSoftShadows = false;
+
     /**
      * SimpleRayTracer constructor to set the scene
      * @param scene scene to set
@@ -32,7 +37,6 @@ public class SimpleRayTracer extends RayTracerBase {
     public SimpleRayTracer(Scene scene) {
         super(scene);
     }
-
 
     @Override
     public Color traceRay(Ray ray) {
@@ -42,6 +46,25 @@ public class SimpleRayTracer extends RayTracerBase {
         return calcColor(closestIntersection, ray);
     }
 
+    /**
+     * Match to soft shadow
+     * @param geoPoint    point of geometry
+     * @param lightSource the light object
+     * @param n           normal to the geo point
+     * @return the level of the transparency
+     */
+    private Double3 transparencyWithSoftShadows(GeoPoint geoPoint, LightSource lightSource, Vector n) {
+        Double3 ktr;
+        List<Vector> beamL = lightSource.getListL(geoPoint.point);
+        Double3 tempKtr = Double3.ZERO;
+        for (Vector vl : beamL) {
+            tempKtr = tempKtr.add(transparency(lightSource, vl, n, geoPoint));
+        }
+
+        ktr = tempKtr.reduce(beamL.size());
+
+        return ktr;
+    }
 
     /** Calculates level of shadow for different levels of transparency
      * @param lightSource lightSource to calculate from
@@ -76,7 +99,6 @@ public class SimpleRayTracer extends RayTracerBase {
 
         return ktr;
     }
-
 
     /**
      * Checking for shading between a point and the light source
@@ -230,19 +252,25 @@ public class SimpleRayTracer extends RayTracerBase {
 
         Color color = geoPoint.geometry.getEmission();
         for (LightSource lightSource : scene.lights) {
-            Vector l = lightSource.getL(geoPoint.point);
-            double nl = alignZero(n.dotProduct(l));
-
-            if ((nl * nv > 0) && unshaded(geoPoint, l, n, lightSource)) {
-                Double3 ktr = transparency(lightSource, l, n, geoPoint);
-                if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
-                    Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
-                    color = color.add(
-                            calcDiffusive(kd, nl, iL),
-                            calcSpecular(ks, l, n, nl, v, nShininess, iL)
-                    );
+                // Regular shadows logic
+                Vector l = lightSource.getL(geoPoint.point);
+                double nl = alignZero(n.dotProduct(l));
+                if ((nl * nv > 0)) {
+                    Double3 ktr;
+                    if (useSoftShadows) {
+                        ktr = transparencyWithSoftShadows(geoPoint, lightSource, l);
+                    } else {
+                        ktr = transparency(lightSource, l, n, geoPoint);
+                    }
+                    if (!ktr.product(k).lowerThan(MIN_CALC_COLOR_K)) {
+                        Color iL = lightSource.getIntensity(geoPoint.point).scale(ktr);
+                        color = color.add(
+                                calcDiffusive(kd, nl, iL),
+                                calcSpecular(ks, l, n, nl, v, nShininess, iL)
+                        );
+                    }
                 }
-            }
+
         }
 
         return color;
@@ -276,5 +304,15 @@ public class SimpleRayTracer extends RayTracerBase {
     private Color calcSpecular(Double3 ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color lightIntensity) {
         double vr = alignZero(v.dotProduct(l.add(n.scale(-2 * nl))));
         return lightIntensity.scale(ks.scale(Math.pow(Math.max(0, -1 * vr), nShininess)));
+    }
+
+    /**
+     * Sets whether to use soft shadows or not
+     * @param useSoftShadows boolean value for useSoftShadows
+     * @return the updated this object
+     */
+    public SimpleRayTracer setUseSoftShadows(boolean useSoftShadows) {
+        this.useSoftShadows = useSoftShadows;
+        return this;
     }
 }

@@ -59,6 +59,12 @@ public class SpotLight extends PointLight {
         return this;
     }
 
+    @Override
+    public SpotLight setRadius(double radius) {
+        super.setRadius(radius);
+        return this;
+    }
+
     /**
      * Setter for narrowBeam
      * @param narrowBeam new double value

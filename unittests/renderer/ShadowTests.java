@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import lighting.DirectionalLight;
 import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
@@ -132,9 +133,10 @@ public class ShadowTests {
       scene.lights.add(
                        new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115),
                                new Vector(-1, -1, -4))
-                          .setKl(4E-4).setKq(2E-5));
+                          .setKl(4E-4).setKq(2E-5).setRadius(5d));
 
-      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600))
+      camera.setSoftShadows(true);
+      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere-SoftShadows-R9", 600, 600))
          .build()
          .renderImage();
 
@@ -151,13 +153,13 @@ public class ShadowTests {
                       new Point(-145, -150, -115),
                       new Point(155, -150, -135),
                       new Point(80, 75, -150))
-                      .setMaterial(new Material().setKs(0.8).setShininess(60)),
+                      .setMaterial(new Material().setKr(0.3).setKs(0.8).setShininess(60)),
 
               new Triangle(
                       new Point(-150, -150, -115),
                       new Point(-70, 70, -140),
                       new Point(75, 75, -150))
-                      .setMaterial(new Material().setKr(0.6).setKs(0.8).setShininess(60)),
+                      .setMaterial(new Material().setKr(0.3).setKs(0.8).setShininess(60)),
 
               new Sphere(new Point(-40, 0, -11), 20d)
                       .setEmission(new Color(GREEN))
@@ -165,7 +167,7 @@ public class ShadowTests {
 
               new Sphere(new Point(0, 1, -11), 20d)
                       .setEmission(new Color(YELLOW)) //
-                      .setMaterial(new Material().setKd(0.2).setKs(0.6).setKt(0.6).setShininess(30)),
+                      .setMaterial(new Material().setKd(0.2).setKs(0.6).setShininess(30)),
 
               new Sphere(new Point(40, 2, -11), 20d) //
                       .setEmission(new Color(RED)) //
@@ -192,7 +194,8 @@ public class ShadowTests {
 
       // Helper for adding geometries and lighting
       multipleGeometriesHelper();
-//      camera.setDensity(17);
+
+      //camera.setDensity(17);
       camera.setImageWriter(new ImageWriter("stage7MultipleGeometriesFinal", 600, 600))
               .build()
               .renderImage();

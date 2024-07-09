@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ac8e4b0-29f4-410f-bbdf-bd2818e1d6de" name="Changes" comment="PR01 Added comments &amp; all tests passed! | DONE">
-      <change afterPath="$PROJECT_DIR$/src/renderer/Blackboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unittests/renderer/SpecialTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/DirectionalLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/DirectionalLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/LightSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/LightSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/PointLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/PointLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lighting/SpotLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lighting/SpotLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/Blackboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/Blackboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/SimpleRayTracer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/SimpleRayTracer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/IntegrationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittests/renderer/ShadowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/renderer/ShadowTests.java" afterDir="false" />
     </list>
@@ -57,72 +63,84 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.All in ISE5784_7172_5564.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CameraTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CylinderTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GeometriesTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ImageWriterTest.ImageWriterTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntegrationTests.TriangleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntegrationTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntegrationTests.planeIntegrationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntegrationTests.sphereIntegrationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntegrationTests.triangleIntegrationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlaneTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PointTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PolygonTests (1).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PolygonTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RayTests.deflectedRayConstructorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RayTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RayTests.normalizeConstructorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RayTests.normalizeRayConstructorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RenderTests.basicRenderJson.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RenderTests.renderMultiColorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RenderTests.renderTwoColorTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ShadowTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ShadowTests.stage7MultipleGeometries.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ShadowTests.trianglesSphereWithCameraRotation.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ShadowTests.trianglesSphereWithCameraTransformation.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SphereTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TriangleTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.VectorTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.geometries in ISE5784_7172_5564.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.renderer in ISE5784_7172_5564.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers&quot;: &quot;true&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;MINI__PROJECT__1&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/noam/IdeaProjects/submit/ISE5784_7172_5564&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/noam/IdeaProjects/ISE5784_7172_5564/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in ISE5784_7172_5564.executor": "Run",
+    "JUnit.CameraTest.executor": "Run",
+    "JUnit.CylinderTests.executor": "Run",
+    "JUnit.DoFTests.testDoF.executor": "Run",
+    "JUnit.GeometriesTests.executor": "Run",
+    "JUnit.ImageWriterTest.ImageWriterTests.executor": "Run",
+    "JUnit.IntegrationTests.TriangleTest.executor": "Run",
+    "JUnit.IntegrationTests.executor": "Run",
+    "JUnit.IntegrationTests.planeIntegrationTest.executor": "Run",
+    "JUnit.IntegrationTests.sphereIntegrationTest.executor": "Run",
+    "JUnit.IntegrationTests.triangleIntegrationTest.executor": "Run",
+    "JUnit.PlaneTests.executor": "Run",
+    "JUnit.PointTests.executor": "Run",
+    "JUnit.PolygonTests (1).executor": "Run",
+    "JUnit.PolygonTests.executor": "Run",
+    "JUnit.RayTests.deflectedRayConstructorTest.executor": "Run",
+    "JUnit.RayTests.executor": "Run",
+    "JUnit.RayTests.normalizeConstructorTest.executor": "Run",
+    "JUnit.RayTests.normalizeRayConstructorTest.executor": "Run",
+    "JUnit.RenderTests.basicRenderJson.executor": "Run",
+    "JUnit.RenderTests.renderMultiColorTest.executor": "Run",
+    "JUnit.RenderTests.renderTwoColorTest.executor": "Run",
+    "JUnit.ShadowTests.Elements10TestMP1.executor": "Run",
+    "JUnit.ShadowTests.createDoFScene.executor": "Run",
+    "JUnit.ShadowTests.executor": "Run",
+    "JUnit.ShadowTests.miniProject1.executor": "Run",
+    "JUnit.ShadowTests.randomGeometriesMiniProject1.executor": "Run",
+    "JUnit.ShadowTests.renderSceneWithoutCylinder.executor": "Run",
+    "JUnit.ShadowTests.stage7MultipleGeometries.executor": "Run",
+    "JUnit.ShadowTests.trianglesSphere.executor": "Run",
+    "JUnit.ShadowTests.trianglesSphereWithCameraRotation.executor": "Run",
+    "JUnit.ShadowTests.trianglesSphereWithCameraTransformation.executor": "Run",
+    "JUnit.SpecialTests.cubeMiniProject1.executor": "Run",
+    "JUnit.SpecialTests.cubeMiniProject31.executor": "Run",
+    "JUnit.SphereTests.executor": "Run",
+    "JUnit.TriangleTests.executor": "Run",
+    "JUnit.VectorTests.executor": "Run",
+    "JUnit.geometries in ISE5784_7172_5564.executor": "Run",
+    "JUnit.renderer in ISE5784_7172_5564.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers": "true",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "MINI__PROJECT__1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/noam/IdeaProjects/ISE5784_7172_5564/images/MINIP-1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/noam/IdeaProjects/ISE5784_7172_5564/src/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images\MINIP-1" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images\MINIP-1" />
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images\Anti-Aliasing" />
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images\Soft-Shadows" />
+      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images\DoF" />
       <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\renderer" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\images" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\geometries" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests\primitives" />
-      <recent name="C:\Users\noam\IdeaProjects\ISE5784_7172_5564\unittests" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -134,31 +152,7 @@
       <recent name="primitives" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ShadowTests.stage7MultipleGeometries">
-    <configuration name="All in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5784_7172_5564" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RayTests.deflectedRayConstructorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ISE5784_7172_5564" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="primitives.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="primitives" />
-      <option name="MAIN_CLASS_NAME" value="primitives.RayTests" />
-      <option name="METHOD_NAME" value="deflectedRayConstructorTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.SpecialTests.cubeMiniProject1">
     <configuration name="ShadowTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
@@ -174,7 +168,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShadowTests.stage7MultipleGeometries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowTests.Elements10TestMP1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
@@ -184,13 +178,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="renderer" />
       <option name="MAIN_CLASS_NAME" value="renderer.ShadowTests" />
-      <option name="METHOD_NAME" value="stage7MultipleGeometries" />
+      <option name="METHOD_NAME" value="Elements10TestMP1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="renderer in ISE5784_7172_5564" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShadowTests.trianglesSphere" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ISE5784_7172_5564" />
       <extension name="coverage">
         <pattern>
@@ -199,18 +193,52 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="renderer" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="MAIN_CLASS_NAME" value="renderer.ShadowTests" />
+      <option name="METHOD_NAME" value="trianglesSphere" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialTests.cubeMiniProject1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5784_7172_5564" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.SpecialTests" />
+      <option name="METHOD_NAME" value="cubeMiniProject1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialTests.cubeMiniProject31" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ISE5784_7172_5564" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="renderer" />
+      <option name="MAIN_CLASS_NAME" value="renderer.SpecialTests" />
+      <option name="METHOD_NAME" value="cubeMiniProject31" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ShadowTests.stage7MultipleGeometries" />
-        <item itemvalue="JUnit.renderer in ISE5784_7172_5564" />
+        <item itemvalue="JUnit.SpecialTests.cubeMiniProject1" />
+        <item itemvalue="JUnit.SpecialTests.cubeMiniProject31" />
+        <item itemvalue="JUnit.ShadowTests.Elements10TestMP1" />
+        <item itemvalue="JUnit.ShadowTests.trianglesSphere" />
         <item itemvalue="JUnit.ShadowTests" />
-        <item itemvalue="JUnit.RayTests.deflectedRayConstructorTest" />
-        <item itemvalue="JUnit.All in ISE5784_7172_5564" />
       </list>
     </recent_temporary>
   </component>
@@ -256,7 +284,7 @@
       <workItem from="1719992297949" duration="4815000" />
       <workItem from="1720009357366" duration="380000" />
       <workItem from="1720019847896" duration="8000" />
-      <workItem from="1720096404930" duration="14079000" />
+      <workItem from="1720096404930" duration="70834000" />
     </task>
     <task id="LOCAL‎-00001" summary="PR01 Added comments &amp; all tests passed | DONE">
       <option name="closed" value="true" />
