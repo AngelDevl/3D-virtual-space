@@ -133,10 +133,9 @@ public class ShadowTests {
       scene.lights.add(
                        new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115),
                                new Vector(-1, -1, -4))
-                          .setKl(4E-4).setKq(2E-5).setRadius(5d));
+                          .setKl(4E-4).setKq(2E-5));
 
-      camera.setSoftShadows(true);
-      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere-SoftShadows-R9", 600, 600))
+      camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600))
          .build()
          .renderImage();
 

@@ -117,9 +117,12 @@ public class SpecialTests {
 
         // To see the cube better (see 3 sides of the cube)
         camera.transform(new Point(210, 230, 950), new Point(0, 0, 0), 180);
+        //camera.setMultithreading(5);
+        //camera.setSoftShadows(true);
+        camera.setDensity(9);
+////
+        camera.setSuperSampling(true);
 
-        camera.setDensity(4);
-        camera.setSoftShadows(true);
         // Render the image
         camera.setImageWriter(new ImageWriter("cube-AntiAliasing&SoftShadows-4x4-R4", 600, 600))
                 .build()

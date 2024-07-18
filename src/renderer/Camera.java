@@ -8,7 +8,7 @@ import primitives.Vector;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
-import java.util.Random;
+import java.util.stream.*;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -44,11 +44,33 @@ public class Camera implements Cloneable {
     /** Plane center point */
     private Point viewPlaneCenter;
 
-    // ImageWriter object
+    /** ImageWriter object to write the rendered image to the disk */
     ImageWriter imageWriter;
 
-    // RayTracerBase object
-    public RayTracerBase rayTracer;
+    /** RayTracer object for tracing the rays */
+    private RayTracerBase rayTracer;
+
+    /** Pixel manager object to manage what pixel should each thread render */
+    private PixelManager pixelManager;
+
+    /** How many threads to create */
+    private int threadsCount = 0; // -2 auto, -1 range/stream, 0 no threads, 1+ number of threads
+
+    /** Spare threads in case of all cores */
+    private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+
+    /** Print interval for percentage */
+    private double printInterval = 0;    // printing progress percentage interval
+
+    /**
+     * Boolean value for whether to use superSampling or not.
+     * We need a boolean and recursion depth variables since the recursion depth depends on the density value,
+     * and the user can set the superSampling before setting the density and then the superSampling would not work.
+     */
+    private boolean useSuperSampling = false;
+
+    /** Represents recursion depth for superSampling */
+    private int superSampling = 0;
 
 
     private Camera() {
@@ -108,8 +130,9 @@ public class Camera implements Cloneable {
         double Rx = width / nX;
 
         // Pixel[i,j] center
-        double yI = -(i - (nY - 1) / 2.0) * Ry;
         double xJ = (j - (nX - 1) / 2.0) * Rx;
+        double yI = -(i - (nY - 1) / 2.0) * Ry;
+
         Point Pij = viewPlaneCenter;
         // make sure to account for Vector ZERO
         if (!isZero(xJ)) { Pij = Pij.add(vecRight.scale(xJ)); }
@@ -133,6 +156,67 @@ public class Camera implements Cloneable {
         return rays;
     }
 
+    /**
+     * calculates Color of pixel using adaptive supersampling
+     * @param Nx number of columns
+     * @param Ny number of rows
+     * @param i pixel index we are on
+     * @param j pixel index we are on
+     */
+    private Color constructRayAccelerator(int Nx, int Ny, int j, int i) {
+        //Image Center
+
+        //Ratio width and height
+        double Ry = height / Ny;
+        double Rx = width / Nx;
+
+        //Pixel[i,j] center
+        double yI = -(i - (Ny-1) / 2.0) * Ry;
+        double xJ =  (j - (Nx-1) / 2.0) * Rx;
+        Point Pij = viewPlaneCenter;
+        //make sure to account for Vector ZERO
+        if(!isZero(xJ)) { Pij = Pij.add(vecRight.scale(xJ)); }
+        if(!isZero(yI)) { Pij = Pij.add(vecUp.scale(yI)); }
+
+        Blackboard blackboard1 = new Blackboard(vecUp, vecRight, 1);
+        return constructRayAcceleratorHelper(Pij, Rx, Ry, superSampling, blackboard1, Color.BLACK);
+    }
+
+    /**
+     * assisting function for superSampling, calculates color
+     * @param Pij center point of target area
+     * @param Rx width of target area
+     * @param Ry height of target area
+     * @param depth recursive max depth
+     * @param blackboard1 blackboard item, used to optimize creation of objects
+     * @param color color to average with
+     * @return final pixel color
+     */
+    private Color constructRayAcceleratorHelper(Point Pij, double Rx, double Ry, int depth, Blackboard blackboard1, Color color){
+        blackboard1 = blackboard1.setCenterPoint(Pij).setWidth(Rx).setHeight(Ry);
+        List<Point> points = blackboard1.generateGrid();
+        List<Ray> rays = new LinkedList<>();
+        for(Point point : points){
+            //rays to point on grid
+            rays.add(new Ray(location, point.subtract(location)));
+        }
+        Color avgColor = calcAvgColor(rays);
+
+        Color color0 = rayTracer.traceRay(rays.getFirst());
+        if(color0.equalsMarg(avgColor)|| depth < 1){
+            if(color.equals(Color.BLACK))
+                color = color.add(avgColor);
+            else
+                color = color.add(avgColor).reduce(2);
+
+            return color;
+        }
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25*Rx)).add(vecUp.scale(0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25*Rx)).add(vecUp.scale(0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25*Rx)).add(vecUp.scale(-0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25*Rx)).add(vecUp.scale(-0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
+        return color;
+    }
 
     /**
      * calculates the average color of a list of points
@@ -147,33 +231,85 @@ public class Camera implements Cloneable {
 
         return color.reduce(rays.size());
     }
+
     /**
      * Looping over all the pixels and using castRay function on every pixel to create a ray to the pixel to find the color
      * and write the color to the pixel
      */
-    public void renderImage() {
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
+    public Camera renderImage() {
+        final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
 
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j++) {
-                castRay(nX, nY, i, j);
+        pixelManager = new PixelManager(nX, nY, printInterval);
+
+        if (threadsCount == 0) {
+            for (int i = 0; i < nX; ++i) {
+                for (int j = 0; j < nY; ++j) {
+                    castRays(nX, nY, i, j);
+                }
             }
         }
+        else if (threadsCount == -1) {
+            IntStream.range(0, nY).parallel()
+                    .forEach(i -> IntStream.range(0, nX).parallel()
+                            .forEach(j -> castRays(nX, nY, j, i)));
+        } else {
+            var threads = new LinkedList<Thread>();
+            while (threadsCount-- > 0) {
+                threads.add(new Thread(() -> {
+                    PixelManager.Pixel pixel;
+                    while ((pixel = pixelManager.nextPixel()) != null) {
+                        castRays(nX, nY, pixel.col(), pixel.row());
+                    }
+                }));
+            }
+
+            for (var thread : threads) {
+                thread.start();
+            }
+
+            try {
+                for (var thread : threads) thread.join();
+            } catch (InterruptedException ignore) {}
+        }
+
+        return this;
+    }
+
+    /**
+     * construct multiple rays in the given row and column and find the color of the pixel
+     * using calcAvgColor that calls trace ray and calculate the average color in a List of rays.
+     * after we find the average color we write the color to the right pixel
+     * @param nX width
+     * @param nY height
+     * @param i row of the pixel
+     * @param j column of the pixel
+     */
+    private void castRays(int nX, int nY, int i, int j) {
+        if (superSampling > 0) {
+            imageWriter.writePixel(i, j, constructRayAccelerator(nX, nY, i, j));
+        }
+        else {
+            imageWriter.writePixel(i, j, calcAvgColor(constructRays(nX, nY, i, j)));
+        }
+
+        pixelManager.pixelDone();
     }
 
     /**
      * construct a ray in the given row and column and find the color of the pixel using traceRay.
      * after we find the color we write the color to the right pixel
-     * @param Nx width
-     * @param Ny height
+     * @param nX width
+     * @param nY height
      * @param i row of the pixel
      * @param j column of the pixel
      */
-    private void castRay(int Nx, int Ny, int i, int j) {
-        List<Ray> rays = constructRays(Nx, Ny, i, j);
-        imageWriter.writePixel(i, j, calcAvgColor(rays));
+    private void castRay(int nX, int nY, int i, int j) {
+        Ray ray = constructRay(nX, nY, i, j);
+        imageWriter.writePixel(i, j, rayTracer.traceRay(ray));
+        pixelManager.pixelDone();
     }
+
 
 
     /**
@@ -327,10 +463,22 @@ public class Camera implements Cloneable {
         /**
          * sets density of anti aliasing
          * @param density density represented in square root (if var is 2 then we will have 4 beams)
-         * @return this
+         * @return the updated this object
          */
         public Builder setDensity(int density){
             camera.density = density;
+            return this;
+        }
+
+        /**
+         * Sets useSuperSampling - true -> use superSampling else don't.
+         * We need both boolean and recursion depth superSampling variables,
+         * since the user can enable the superSampling before setting the density.
+         * And then the superSampling would not work since it depends on the density value.
+         * @return the updated this object
+         */
+        public Builder setSuperSampling(boolean useSuperSampling) {
+            camera.useSuperSampling = useSuperSampling;
             return this;
         }
 
@@ -341,6 +489,35 @@ public class Camera implements Cloneable {
          */
         public Builder setSoftShadows(boolean useSoftShadows) {
             ((SimpleRayTracer) camera.rayTracer).setUseSoftShadows(useSoftShadows);
+            return this;
+        }
+
+        /**
+         * sets multithreading amount
+         * @param threads amount of threads
+         * @return the updated this object
+         */
+        public Builder setMultithreading(int threads) {
+            if (threads < -2)
+                throw new IllegalArgumentException("Multithreading must be -2 or higher");
+
+            if (threads >= -1) {
+                camera.threadsCount = threads;
+            } else { // == -2
+                int cores = Runtime.getRuntime().availableProcessors() - camera.SPARE_THREADS;
+                camera.threadsCount = cores <= 2 ? 1 : cores;
+            }
+
+            return this;
+        }
+
+        /**
+         * progress bar, only works in Eclipse
+         * @param interval how often should it update
+         * @return the updated this object
+         */
+        public Builder setDebugPrint(double interval) {
+            camera.printInterval = interval;
             return this;
         }
 
@@ -381,6 +558,10 @@ public class Camera implements Cloneable {
 
             camera.vecRight = (camera.vecTo.crossProduct(camera.vecUp)).normalize();
             camera.viewPlaneCenter = camera.location.add(camera.vecTo.scale(camera.distance));
+
+            // calculates recursion depth by rounding as if we would scan the whole pixel as opposed to just parts of it
+            if (camera.useSuperSampling)
+                camera.superSampling = (int)(Math.log(camera.density) / Math.log(2));
 
             camera.blackboard = new Blackboard(camera.vecUp, camera.vecRight, camera.density);
 

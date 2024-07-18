@@ -111,6 +111,15 @@ public class Color {
       return new Color(rgb.reduce(k));
    }
 
+   /**
+    * checks if colors are equal with a small margin since the human eye can't tell the difference
+    * @param color
+    * @return
+    */
+   public boolean equalsMarg(Color color){
+      return (color.rgb.subtract(rgb).lowerThan(1) && color.rgb.subtract(rgb).scale(-1).lowerThan(1));
+   }
+
    @Override
    public String toString() { return "rgb:" + rgb; }
 }

@@ -87,6 +87,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
+     *
      * @param p point on the geometry that the light is on
      * @return list of vectors from the point to the light
      */

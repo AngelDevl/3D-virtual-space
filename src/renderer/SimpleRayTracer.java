@@ -1,8 +1,6 @@
 package renderer;
 
 import lighting.LightSource;
-import lighting.PointLight;
-import lighting.SpotLight;
 import primitives.*;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     /**
-     * Match to soft shadow
+     * Match to soft shadows - doing average ktr for all the rays (vectors) of the light
      * @param geoPoint    point of geometry
      * @param lightSource the light object
      * @param n           normal to the geo point
@@ -116,7 +114,7 @@ public class SimpleRayTracer extends RayTracerBase {
         Vector lightDirection = l.scale(-1); // from point to light source
 
 
-        Ray ray= new Ray(gp.point, n, lightDirection);
+        Ray ray = new Ray(gp.point, n, lightDirection);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray, lightSource.getDistance(ray.head));
         if (intersections == null){
             return true;
@@ -213,6 +211,7 @@ public class SimpleRayTracer extends RayTracerBase {
         if (isZero(alignZero(vn))) {
             return null;
         }
+
         return new Ray(point, normal, direction);
     }
 

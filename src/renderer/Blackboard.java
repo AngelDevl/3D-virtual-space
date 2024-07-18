@@ -107,7 +107,9 @@ public class Blackboard {
 
             for (int i = 0; i <= density; i++){
                 if(!isZero(i)) {
-                    p = p.add(vecUp.scale((-dY) + random(-0.1 * dX, 0.1 * dX)).add(vecRight.scale(random(-0.1 * dY, 0.1 * dY))));
+                    double randomed = random(-0.1 * dY, 0.1 * dY);
+                    double scalar = (-dY) + random(-0.1 * dX, 0.1 * dX);
+                    p = p.add(vecUp.scale(scalar).add(vecRight.scale(randomed)));
                 }
 
                 points.add(p);
