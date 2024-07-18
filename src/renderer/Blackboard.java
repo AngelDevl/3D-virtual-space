@@ -15,7 +15,7 @@ import static primitives.Util.random;
 public class Blackboard {
 
     /** point to represent pixel center */
-    private Point p0;
+    private Point pixelCenter;
 
     /** Vector upwards */
     private Vector vecUp;
@@ -82,11 +82,11 @@ public class Blackboard {
 
     /**
      * set center point of blackboard
-     * @param p0 center point
+     * @param pixelCenter center point
      * @return this
      */
-    public Blackboard setCenterPoint(Point p0){
-        this.p0 = p0;
+    public Blackboard setCenterPoint(Point pixelCenter){
+        this.pixelCenter = pixelCenter;
         return this;
     }
 
@@ -97,7 +97,7 @@ public class Blackboard {
     public List<Point> generateJitterGrid(){
         List<Point> points = new LinkedList<>();
         //bring our point up to the corner
-        Point p, topleft = p0.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
+        Point p, topleft = pixelCenter.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
         for (int j = 0; j <= density; j++){
             p = topleft;
             //deal with vector zero
@@ -107,9 +107,9 @@ public class Blackboard {
 
             for (int i = 0; i <= density; i++){
                 if(!isZero(i)) {
-                    double randomed = random(-0.1 * dY, 0.1 * dY);
-                    double scalar = (-dY) + random(-0.1 * dX, 0.1 * dX);
-                    p = p.add(vecUp.scale(scalar).add(vecRight.scale(randomed)));
+                    double randomYDistance = random(-0.1 * dY, 0.1 * dY);
+                    double randomXDistance = (-dY) + random(-0.1 * dX, 0.1 * dX);
+                    p = p.add(vecUp.scale(randomXDistance).add(vecRight.scale(randomYDistance)));
                 }
 
                 points.add(p);
@@ -126,7 +126,7 @@ public class Blackboard {
     public List<Point> generateGrid(){
         List<Point> points = new LinkedList<>();
         //bring our point up to the corner
-        Point p, topleft = p0.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
+        Point p, topleft = pixelCenter.add(vecRight.scale(-0.5 * width)).add(vecUp.scale(0.5 * height));
         for (int j = 0; j <= density; j++){
             p = topleft;
             //deal with vector zero

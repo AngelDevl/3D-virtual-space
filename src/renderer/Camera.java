@@ -157,15 +157,13 @@ public class Camera implements Cloneable {
     }
 
     /**
-     * calculates Color of pixel using adaptive supersampling
+     * calculates Color of pixel using adaptive superSampling
      * @param Nx number of columns
      * @param Ny number of rows
      * @param i pixel index we are on
      * @param j pixel index we are on
      */
     private Color constructRayAccelerator(int Nx, int Ny, int j, int i) {
-        //Image Center
-
         //Ratio width and height
         double Ry = height / Ny;
         double Rx = width / Nx;
@@ -178,7 +176,7 @@ public class Camera implements Cloneable {
         if(!isZero(xJ)) { Pij = Pij.add(vecRight.scale(xJ)); }
         if(!isZero(yI)) { Pij = Pij.add(vecUp.scale(yI)); }
 
-        Blackboard blackboard1 = new Blackboard(vecUp, vecRight, 1);
+        Blackboard blackboard1 = new Blackboard(vecUp, vecRight, 2);
         return constructRayAcceleratorHelper(Pij, Rx, Ry, superSampling, blackboard1, Color.BLACK);
     }
 
@@ -196,25 +194,29 @@ public class Camera implements Cloneable {
         blackboard1 = blackboard1.setCenterPoint(Pij).setWidth(Rx).setHeight(Ry);
         List<Point> points = blackboard1.generateGrid();
         List<Ray> rays = new LinkedList<>();
-        for(Point point : points){
-            //rays to point on grid
+        for (Point point : points){
+            // Creating new rays to the points on  the generated grid
             rays.add(new Ray(location, point.subtract(location)));
         }
-        Color avgColor = calcAvgColor(rays);
 
+        Color avgColor = calcAvgColor(rays);
         Color color0 = rayTracer.traceRay(rays.getFirst());
-        if(color0.equalsMarg(avgColor)|| depth < 1){
-            if(color.equals(Color.BLACK))
+
+        // Check if the average color is almost equal to the color of tracing tha ray
+        if (color0.equalsMarg(avgColor)|| depth < 1){
+            if (color.equals(Color.BLACK))
                 color = color.add(avgColor);
             else
                 color = color.add(avgColor).reduce(2);
 
             return color;
         }
-        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25*Rx)).add(vecUp.scale(0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
-        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25*Rx)).add(vecUp.scale(0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
-        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25*Rx)).add(vecUp.scale(-0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
-        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25*Rx)).add(vecUp.scale(-0.25*Ry)), Rx/2d, Ry/2d, (depth-1), blackboard1, color);
+
+        // Recursion - Split the area to 4 grids and calculate the color for each grid if the color is almost the same we don't need to trace the other rays
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25 * Rx)).add(vecUp.scale(0.25 * Ry)), Rx / 2d, Ry / 2d, (depth - 1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25 * Rx)).add(vecUp.scale(0.25 * Ry)), Rx / 2d, Ry / 2d, (depth - 1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(0.25 * Rx)).add(vecUp.scale(-0.25 * Ry)), Rx / 2d, Ry / 2d, (depth - 1), blackboard1, color);
+        color = constructRayAcceleratorHelper(Pij.add(vecRight.scale(-0.25 * Rx)).add(vecUp.scale(-0.25 * Ry)), Rx / 2d, Ry / 2d, (depth - 1), blackboard1, color);
         return color;
     }
 
@@ -242,6 +244,7 @@ public class Camera implements Cloneable {
 
         pixelManager = new PixelManager(nX, nY, printInterval);
 
+        // No threads
         if (threadsCount == 0) {
             for (int i = 0; i < nX; ++i) {
                 for (int j = 0; j < nY; ++j) {
@@ -249,26 +252,27 @@ public class Camera implements Cloneable {
                 }
             }
         }
-        else if (threadsCount == -1) {
-            IntStream.range(0, nY).parallel()
-                    .forEach(i -> IntStream.range(0, nX).parallel()
-                            .forEach(j -> castRays(nX, nY, j, i)));
-        } else {
+        else {
             var threads = new LinkedList<Thread>();
             while (threadsCount-- > 0) {
+                // Creation of the threads
                 threads.add(new Thread(() -> {
                     PixelManager.Pixel pixel;
+                    // nextPixel function ensure that we don't get to a critical section
+                    // By giving the next pixel to the current thread
                     while ((pixel = pixelManager.nextPixel()) != null) {
                         castRays(nX, nY, pixel.col(), pixel.row());
                     }
                 }));
             }
 
+            // Starting the threads after initializing
             for (var thread : threads) {
                 thread.start();
             }
 
             try {
+                // Join the main thread when the image is rendered
                 for (var thread : threads) thread.join();
             } catch (InterruptedException ignore) {}
         }
